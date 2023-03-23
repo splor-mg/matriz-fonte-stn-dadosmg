@@ -1,0 +1,47 @@
+fields:
+  - name: FONTE_STN_COD
+    title: Fonte de Recurso STN - Código
+    type: integer
+    format: default
+    constraints: 
+      required: true
+      minimum: 500
+      maximum: 999
+  - name: ANO
+    title: Ano de Exercício
+    description: Ano de exercício do início da vigência da linha para fins de classificação
+    type: year
+    format: default
+    constraints: 
+      required: true
+  - name: MES
+    title: Mês - Número
+    description: Mês numérico do início da vigência da linha para fins de classificação
+    type: integer
+    format: default
+    constraints: 
+      required: true
+      minimum: 1
+      maximum: 12
+  - name: UO_COD
+    title: Unidade Orçamentária - Código
+    type: string
+    format: default
+    constraints: 
+      required: true
+      pattern: \d{4}
+  - name: FONTE_COD
+    title: Fonte de Recurso - Código
+    type: integer
+    format: default
+    constraints: 
+      required: true
+      minimum: 1
+      maximum: 99
+  - name: RECEITA_COD
+    title: Classificação Receita - Código
+    type: string
+    format: default
+    constraints: 
+      required: true
+      pattern: \d{13}
