@@ -13,4 +13,4 @@ setorderv(matriz_rec)
 matriz_rec <- unique(matriz_rec, 
                      by = c("FONTE_STN_COD", "UO_COD", "FONTE_COD", "RECEITA_COD"))
 
-fwrite(matriz_rec, "data/matriz_receita.csv")
+fwrite(matriz_rec, "data/matriz_receita.csv", sep = ";")
