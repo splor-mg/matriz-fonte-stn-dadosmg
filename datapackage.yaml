@@ -1,29 +1,29 @@
 name: matriz-fonte-stn
 owner_org: secretaria-de-estado-de-planejamento-e-gestao-seplag
 resources:
-  - profile: data-resource
+-   profile: data-resource
     name: anexo_nt_gtfr_01_2023
     title: Anexo da Nota Técnica GTFR 01/2023 - SEF/STE - SEPLAG/SPLOR
     path: anexo_nt_gtfr_01_2023.pdf
     format: pdf
     schema: schemas/acoes_planejamento.yaml
-  - profile: tabular-data-resource
+-   profile: tabular-data-resource
     name: matriz_receita
     title: Matriz de correspondência - Receita
     path: data/matriz_receita.csv
     format: csv
     encoding: utf-8
     dialect:
-      csv:
-        delimiter: ;
+        csv:
+            delimiter: ;
     schema: schemas/matriz_receita.yaml
-  - profile: tabular-data-resource
+-   profile: tabular-data-resource
     name: matriz_despesa
     title: Matriz de correspondência - Despesa
     path: data/matriz_despesa.csv
     format: csv
     encoding: utf-8
     dialect:
-      csv:
-        delimiter: ;
+        csv:
+            delimiter: ;
     schema: schemas/matriz_despesa.yaml
