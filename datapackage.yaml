@@ -1,4 +1,5 @@
 name: matriz-fonte-stn
+title: Matriz de correspondências
 owner_org: secretaria-de-estado-de-planejamento-e-gestao-seplag
 resources:
 -   profile: data-resource
