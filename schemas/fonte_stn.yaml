@@ -1,6 +1,4 @@
 fields:
-  - name: id
-    type: integer
   - name: codigo
     title: Código
     type: integer
@@ -31,13 +29,11 @@ fields:
 
       Para o classificador exemplo:
 
-      | id | codigo | descricao   | interpretacao               | dt_inicio_vigencia | dt_fim_vigencia |
-      |----|--------|-------------|-----------------------------|--------------------|-----------------|
-      | 1  | 1      | Lorem Ipsum | dolor sit amet              | 0001-01-01         | 2023-02-01      |
-      | 2  | 1      | Lorem Ipsum | consectetur adipiscing elit | 2023-02-01         | 9999-12-01      |
+      | codigo | descricao   | interpretacao               | dt_inicio_vigencia | dt_fim_vigencia |
+      |--------|-------------|-----------------------------|--------------------|-----------------|
+      | 1      | Lorem Ipsum | dolor sit amet              | 0001-01-01         | 2023-02-01      |
+      | 1      | Lorem Ipsum | consectetur adipiscing elit | 2023-02-01         | 9999-12-01      |
 
       A interpretação vigente para o código 1 no mês de fevereiro/2023 é _"consectetur adipiscing elit"_.
     type: date
     format: default
-primaryKey: 
-  - id
