@@ -12,7 +12,7 @@ resources:
     title: Matriz de correspondência - Receita
     path: data/matriz_receita.csv
     format: csv
-    encoding: utf-8-sig
+    encoding: utf-8
     dialect:
       csv:
         delimiter: ;
@@ -22,7 +22,7 @@ resources:
     title: Matriz de correspondência - Despesa
     path: data/matriz_despesa.csv
     format: csv
-    encoding: utf-8-sig
+    encoding: utf-8
     dialect:
       csv:
         delimiter: ;
