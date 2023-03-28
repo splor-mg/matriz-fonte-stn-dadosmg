@@ -26,3 +26,21 @@ resources:
         csv:
             delimiter: ;
     schema: schemas/matriz_despesa.yaml
+-   profile: tabular-data-resource
+    name: fonte_stn
+    title: Classificação por fonte ou destinação de recursos para Estados, Distrito Federal e Municípios
+    description: |
+      Anexos da [Portaria STN nº 710/2021](https://in.gov.br/en/web/dou/-/portaria-n-710-de-25-de-fevereiro-de-2021-305389863) atualizados de acordo com as seguintes portarias: 
+      
+      - [Portaria STN nº 925, de 08/07/2021](https://in.gov.br/en/web/dou/-/portaria-n-925-de-8-de-julho-de-2021-330973177)
+      - [Portaria STN nº 1.141, de 11/11/2021](https://in.gov.br/en/web/dou/-/portaria-n-1.141-de-11-de-novembro-de-2021-359413243)
+      - [Portaria STN nº 1.445, de 14/06/2022](https://in.gov.br/en/web/dou/-/portaria-n-1.445-de-14-de-junho-de-2022-408494662)
+      - [Portaria STN nº 1.566, de 31/08/2022](https://in.gov.br/en/web/dou/-/portaria-n-1.566-de-31-de-agosto-de-2022-426188569)
+      - [Portaria STN nº 10.463, de 07/12/2022](https://in.gov.br/en/web/dou/-/portaria-stn-n-10.463-de-7-de-dezembro-de-2022-449271100)
+    path: data/fonte_stn.csv
+    format: csv
+    encoding: utf-8
+    dialect:
+        csv:
+            delimiter: ;
+    schema: schemas/fonte_stn.yaml
