@@ -14,7 +14,7 @@ fields:
     format: default
     constraints: 
       required: true
-  - name: MES
+  - name: MES_COD
     title: Mês - Número
     description: Mês numérico do início da vigência da linha para fins de classificação
     type: integer
