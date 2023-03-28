@@ -1,4 +1,6 @@
-.PHONY: transform
+.PHONY: all transform publish
+
+all: transform publish
 
 transform: data/matriz_receita.csv data/matriz_despesa.csv data/fonte_stn.csv
 
@@ -10,3 +12,6 @@ data/matriz_despesa.csv: scripts/matriz_despesa.R data-raw/exec_desp.xlsx
 
 data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.xlsx
 	Rscript $<
+
+publish:
+	dpckan --datapackage datapackage.yaml dataset update
