@@ -1,4 +1,4 @@
-﻿fonte_stn_cod;fonte_stn_descricao;interpretacao;dt_inicio_vigencia;dt_fim_vigencia
+﻿FONTE_STN_COD;FONTE_STN_DESCRICAO;INTERPRETACAO;DT_INICIO_VIGENCIA;DT_FIM_VIGENCIA
 500;Recursos não Vinculados de Impostos;Recursos de impostos e transferências de impostos de livre aplicação. Em atendimento ao disposto no inciso X do art. 4º da Lei Complementar nº 141, de 13 de janeiro de 2012, para identificação do percentual mínimo aplicado em ASPS, essa fonte de recursos deverá ser associada ao marcador que identifica as despesas que podem ser consideradas para esse limite. A mesma lógica será utilizada para a identificação do percentual mínimo de aplicação em MDE.;2023-01-01;9999-12-01
 501;Outros Recursos não Vinculados;Outros recursos não vinculados que não se enquadram na especificação acima.;2023-01-01;9999-12-01
 502;Recursos não vinculados da compensação de impostos.;Controle dos recursos não vinculados provenientes da compensação de impostos para atendimento ao disposto no artigo 9º da LC 141/2012.;2023-01-01;9999-12-01

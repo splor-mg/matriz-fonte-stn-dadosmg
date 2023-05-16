@@ -1,24 +1,24 @@
 fields:
-  - name: fonte_stn_cod
+  - name: FONTE_STN_COD
     title: Fonte de Recurso STN - Código
     description: Código da Fonte de Recurso conforme estabelecido na Portaria Conjunta STN SOF nº 20/2021 e da Portaria STN n° 710/2021.
     type: integer
     format: default
-  - name: fonte_stn_descricao
+  - name: FONTE_STN_DESCRICAO
     title: Fonte de Recurso STN
     description: Descrição da Fonte de Recurso conforme estabelecido na Portaria Conjunta STN SOF nº 20/2021 e da Portaria STN n° 710/2021.
     type: string
     format: default
-  - name: interpretacao
+  - name: INTERPRETACAO
     title: Interpretação
     type: string
     format: default
-  - name: dt_inicio_vigencia
+  - name: DT_INICIO_VIGENCIA
     title: Data de início da vigência da linha para fins de classificação
     description: A data 0001-01-01 indica que o início da vigência da classificação estende-se indefinidamente para o passado.
     type: date
     format: default
-  - name: dt_fim_vigencia
+  - name: DT_FIM_VIGENCIA
     title: Data do encerramento da vigência da linha para fins de classificação
     description: |
       ## Intervalo de vigência indefinido
@@ -31,7 +31,7 @@ fields:
 
       Para o classificador exemplo:
 
-      | fonte_stn_cod | fonte_stn_descricao   | interpretacao               | dt_inicio_vigencia | dt_fim_vigencia |
+      | FONTE_STN_COD | FONTE_STN_DESCRICAO   | INTERPRETACAO               | DT_INICIO_VIGENCIA | DT_FIM_VIGENCIA |
       |---------------|-----------------------|-----------------------------|--------------------|-----------------|
       | 1             | Lorem Ipsum           | dolor sit amet              | 0001-01-01         | 2023-02-01      |
       | 1             | Lorem Ipsum           | consectetur adipiscing elit | 2023-02-01         | 9999-12-01      |
