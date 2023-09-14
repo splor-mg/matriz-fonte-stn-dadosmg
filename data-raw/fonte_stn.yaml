@@ -19,8 +19,9 @@
 - fonte_stn_cod: 502
   fonte_stn_descricao: Recursos não vinculados da compensação de impostos.
   interpretacao: >-
-    Controle dos recursos não vinculados provenientes da compensação
-    de impostos para atendimento ao disposto no artigo 9º da LC 141/2012.
+    Controle dos recursos não vinculados provenientes da compensação de impostos. 
+    Essa fonte de recursos deverá ser associada ao marcador que identifica as despesas que 
+    podem ser consideradas para cumprimento dos limites mínimos de aplicação em ASPS e em MDE.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 540
@@ -136,11 +137,11 @@
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 573
-  fonte_stn_descricao: Royalties do Petróleo e Gás Natural Vinculados à Educação
+  fonte_stn_descricao: Royalties e Participação Especial de Petróleo e Gás Natural Vinculados à Educação - Lei nº 12.858/2013
   interpretacao: >-
     Controle dos recursos vinculados à Educação, originários de transferências
-    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
-    da Lei nº 12.858/2013.
+    recebidas pelos entes, relativos a Royalties e Participação Especial com base no art. 2º da
+    Lei nº 12.858/2013.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 574
@@ -276,10 +277,10 @@
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 635
-  fonte_stn_descricao: Royalties do Petróleo e Gás Natural vinculados à Saúde
+  fonte_stn_descricao: Royalties e Participação Especial de Petróleo e Gás Natural vinculados à Saúde - Lei nº 12.858/2013
   interpretacao: >-
     Controle dos recursos vinculados à Saúde, originários de transferências
-    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
+    recebidas pelos entes, relativos a Royalties e Participação Especial com base no art. 2º 
     da Lei nº 12.858/2013.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
