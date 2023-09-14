@@ -383,7 +383,7 @@
     de contrato de partilha de produção, exceto os recursos provenientes da Lei nº
     12.858/2013, destinados às áreas da saúde ou da educação.
   dt_inicio_vigencia: '2023-01-01'
-  dt_fim_vigencia: '9999-12-01'
+  dt_fim_vigencia: '2024-01-01'
 - fonte_stn_cod: 705
   fonte_stn_descricao: Transferências dos Estados Referentes a Compensações Financeiras pela Exploração de Recursos Naturais
   interpretacao: >-
