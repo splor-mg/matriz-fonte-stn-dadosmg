@@ -223,6 +223,13 @@
     Constituição Federal.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 605
+  fonte_stn_descricao: Assistência financeira da União destinada à complementação ao pagamento dos pisos salariais para profissionais da enfermagem.
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, a título de assistência financeira complementar, para o cumprimento dos pisos salariais profissionais nacionais para o enfermeiro, 
+    o técnico de enfermagem, o auxiliar de enfermagem e a parteira, conforme estabelecido pela CF/88, art. 198, §§12 a 15.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 621
   fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Estadual
   interpretacao: >-
