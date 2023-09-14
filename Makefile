@@ -10,7 +10,7 @@ data/matriz_receita.csv: scripts/matriz_receita.R data-raw/exec_rec_prev_inicial
 data/matriz_despesa.csv: scripts/matriz_despesa.R data-raw/exec_desp.xlsx
 	Rscript $<
 
-data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.xlsx
+data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
 	Rscript $<
 
 publish:

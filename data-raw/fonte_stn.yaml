@@ -1,0 +1,691 @@
+- fonte_stn_cod: 500
+  fonte_stn_descricao: Recursos não Vinculados de Impostos
+  interpretacao: >-
+    Recursos de impostos e transferências de impostos de livre aplicação.
+    Em atendimento ao disposto no inciso X do art. 4º da Lei Complementar nº 141,
+    de 13 de janeiro de 2012, para identificação do percentual mínimo aplicado em
+    ASPS, essa fonte de recursos deverá ser associada ao marcador que identifica as
+    despesas que podem ser consideradas para esse limite. A mesma lógica será utilizada
+    para a identificação do percentual mínimo de aplicação em MDE.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 501
+  fonte_stn_descricao: Outros Recursos não Vinculados
+  interpretacao: >-
+    Outros recursos não vinculados que não se enquadram na especificação
+    acima.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 502
+  fonte_stn_descricao: Recursos não vinculados da compensação de impostos.
+  interpretacao: >-
+    Controle dos recursos não vinculados provenientes da compensação
+    de impostos para atendimento ao disposto no artigo 9º da LC 141/2012.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 540
+  fonte_stn_descricao: Transferências do FUNDEB - Impostos e Transferências de Impostos
+  interpretacao: >-
+    Controle dos recursos recebidos do FUNDEB referente à repartição
+    dentro de cada Estado, com base nos incisos I, II e III do art. 212-A da Constituição
+    Federal. Na fase da despesa, quando for o caso, será necessário associar esta
+    fonte ao marcador do percentual de aplicação no pagamento da remuneração dos profissionais
+    da educação básica em efetivo exercício para identificar o cumprimento do percentual
+    mínimo de 70% estabelecido no inciso XI do art. 212-A da CF.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 541
+  fonte_stn_descricao: Transferências do FUNDEB - Complementação da União - VAAF
+  interpretacao: >-
+    Controle dos recursos de complementação da União ao FUNDEB - VAAF,
+    com base na alínea a do inciso V do art. 212-A da Constituição Federal. Na fase
+    da despesa, quando for o caso, será necessário associar esta fonte ao marcador
+    do percentual de aplicação no pagamento da remuneração dos profissionais da educação
+    básica em efetivo exercício para identificar o cumprimento do percentual mínimo
+    de 70% estabelecido no inciso XI do art. 212-A da CF.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 542
+  fonte_stn_descricao: Transferências do FUNDEB - Complementação da União - VAAT
+  interpretacao: >-
+    Controle dos recursos de complementação da União ao FUNDEB - VAAT,
+    com base na alínea b do inciso V do art. 212-A da Constituição Federal. Na fase
+    da despesa, quando for o caso, será necessário associar esta fonte ao marcador
+    do percentual de aplicação no pagamento da remuneração dos profissionais da educação
+    básica em efetivo exercício para identificar o cumprimento do percentual mínimo
+    de 70% estabelecido no inciso XI do art. 212-A da CF.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 543
+  fonte_stn_descricao: Transferências do FUNDEB - Complementação da União - VAAR
+  interpretacao: >-
+    Controle dos recursos de complementação da União ao FUNDEB - VAAR,
+    com base na alínea c, inciso V do art. 212-A da Constituição Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 544
+  fonte_stn_descricao: Recursos de Precatórios do FUNDEF
+  interpretacao: >-
+    Controle dos recursos decorrentes do recebimento de precatórios derivados
+    de ações judiciais associadas à complementação devida pela União ao Fundo de Manutenção
+    e Desenvolvimento do Ensino Fundamental e de Valorização do Magistério dos demais
+    entes federados (Precatórios Fundef).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 550
+  fonte_stn_descricao: Transferência do Salário-Educação
+  interpretacao: >-
+    Controle dos recursos originários de transferências recebidas do
+    Fundo Nacional do Desenvolvimento da Educação - FNDE, relativos aos repasses referentes
+    ao salário-educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 551
+  fonte_stn_descricao: Transferências de Recursos do FNDE referentes ao Programa Dinheiro Direto na Escola (PDDE)
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    do Desenvolvimento da Educação - FNDE, destinados ao Programa Dinheiro Direto
+    na Escola (PDDE).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 552
+  fonte_stn_descricao: Transferências de Recursos do FNDE referentes ao Programa Nacional de Alimentação Escolar (PNAE)
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    do Desenvolvimento da Educação - FNDE, destinados ao Programa Nacional de Alimentação
+    Escolar (PNAE).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 553
+  fonte_stn_descricao: Transferências de Recursos do FNDE Referentes ao Programa Nacional de Apoio ao Transporte Escolar (PNATE)
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    do Desenvolvimento da Educação - FNDE, destinados ao Programa Nacional de Apoio
+    ao Transporte Escolar (PNATE).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 569
+  fonte_stn_descricao: Outras Transferências de Recursos do FNDE
+  interpretacao: >-
+    Controle dos demais recursos originários de transferências do Fundo
+    Nacional do Desenvolvimento da Educação - FNDE.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 570
+  fonte_stn_descricao: Transferências do Governo Federal referentes a Convênios e Instrumentos Congêneres vinculados à Educação
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com a União, cuja destinação
+    encontra-se vinculada a programas da educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 571
+  fonte_stn_descricao: Transferências do Estado referentes a Convênios e Instrumentos Congêneres vinculados à Educação
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com os Estados, cuja destinação
+    encontra-se vinculada a programas da educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 572
+  fonte_stn_descricao: Transferências de Municípios referentes a Convênios e Instrumentos Congêneres vinculados à Educação
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com outros municípios, cuja
+    destinação encontra-se vinculada a programas da educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 573
+  fonte_stn_descricao: Royalties do Petróleo e Gás Natural Vinculados à Educação
+  interpretacao: >-
+    Controle dos recursos vinculados à Educação, originários de transferências
+    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
+    da Lei nº 12.858/2013.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 574
+  fonte_stn_descricao: Operações de Crédito Vinculadas à Educação
+  interpretacao: >-
+    Controle dos recursos originários de operações de crédito, cuja destinação
+    encontra-se vinculada a programas da educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 575
+  fonte_stn_descricao: Outras Transferências de Convênios e Instrumentos Congêneres vinculados à Educação
+  interpretacao: >-
+    Controle dos recursos originários de transferências de entidades
+    privadas, estrangeiras ou multigovernamentais em virtude de assinatura de convênios
+    e instrumentos congêneres, cuja destinação encontra-se vinculada a programas de
+    educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 576
+  fonte_stn_descricao: Transferências de Recursos dos Estados para programas de educação
+  interpretacao: >-
+    Controle dos recursos transferidos pelos Estados para programas de
+    educação, que não decorram de celebração de convênios, contratos de repasse e
+    termos de parceria.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 599
+  fonte_stn_descricao: Outros Recursos Vinculados à Educação
+  interpretacao: >-
+    Controle dos demais recursos vinculados à Educação, não enquadrados
+    nas especificações anteriores.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 600
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Federal - Bloco de Manutenção das Ações e Serviços Públicos de Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    de Saúde, referentes ao Sistema Único de Saúde (SUS) e relacionados ao Bloco de
+    Manutenção das Ações e Serviços Públicos de Saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 601
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Federal - Bloco de Estruturação da Rede de Serviços Públicos de Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    de Saúde, referentes ao Sistema Único de Saúde (SUS) e relacionados ao Bloco de
+    Estruturação na Rede de Serviços Públicos de Saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 602
+  fonte_stn_descricao: >- 
+    Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Federal - 
+    Bloco de Manutenção das Ações e Serviços Públicos de Saúde - 
+    Recursos destinados ao enfrentamento da COVID-19 no bojo da ação 21C0.
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    de Saúde, referentes ao Sistema Único de Saúde (SUS), relacionados ao Bloco de
+    Manutenção das Ações e Serviços Públicos de Saúde, e destinados ao enfrentamento
+    da COVID-19 no bojo da ação 21C0 do orçamento da União.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 603
+  fonte_stn_descricao: >-
+    Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Federal - 
+    Bloco de Estruturação da Rede de Serviços Públicos de Saúde - 
+    Recursos destinados ao enfrentamento da COVID-19 no bojo da ação 21C0.
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Nacional
+    de Saúde, referentes ao Sistema Único de Saúde (SUS), relacionados ao Bloco de
+    Estruturação na Rede de Serviços Públicos de Saúde e destinados ao enfrentamento
+    da COVID-19 no bojo da ação 21C0 do orçamento da União.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 604
+  fonte_stn_descricao: Transferências provenientes do Governo Federal destinadas ao vencimento dos agentes comunitários de saúde e dos agentes de combate às endemias
+  interpretacao: >-
+    Controle dos recursos originários do Governo Federal, referentes
+    ao Sistema Único de Saúde (SUS), relacionados ao vencimento dos agentes comunitários
+    de saúde e dos agentes de combate às endemias, nos termos do art. 198, §7ª da
+    Constituição Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 621
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Estadual
+  interpretacao: >-
+    Controle dos recursos originários de transferências do Fundo Estadual
+    de Saúde, referentes ao Sistema Único de Saúde (SUS).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 622
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes dos Governos Municipais
+  interpretacao: >-
+    Controle dos recursos originários de transferências dos Fundos de
+    Saúde de outros municípios, referentes ao Sistema Único de Saúde (SUS).
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 631
+  fonte_stn_descricao: Transferências do Governo Federal referentes a Convênios e Instrumentos Congêneres vinculados à Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com a União, cuja destinação
+    encontra-se vinculada a programas da saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 632
+  fonte_stn_descricao: Transferências do Estado referentes a Convênios e Instrumentos Congêneres vinculados à Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com os Estados, cuja destinação
+    encontra-se vinculada a programas da saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 633
+  fonte_stn_descricao: Transferências de Municípios referentes a Convênios Instrumentos Congêneres vinculados à Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres com outros Municípios, cuja
+    destinação encontra-se vinculada a programas da saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 634
+  fonte_stn_descricao: Operações de Crédito vinculadas à Saúde
+  interpretacao: >-
+    Controle dos recursos originários de operações de crédito, cuja destinação
+    encontra-se vinculada a programas da saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 635
+  fonte_stn_descricao: Royalties do Petróleo e Gás Natural vinculados à Saúde
+  interpretacao: >-
+    Controle dos recursos vinculados à Saúde, originários de transferências
+    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
+    da Lei nº 12.858/2013.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 636
+  fonte_stn_descricao: Outras Transferências de Convênios e Instrumentos Congêneres vinculados à Saúde
+  interpretacao: >-
+    Controle dos recursos originários de transferências de entidades
+    privadas, estrangeiras ou multigovernamentais em virtude de assinatura de convênios
+    e instrumentos congêneres, cuja destinação encontra-se vinculada a programas de
+    saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 659
+  fonte_stn_descricao: Outros Recursos Vinculados à Saúde
+  interpretacao: >-
+    Controle dos demais recursos vinculados à Saúde, não enquadrados
+    nas especificações anteriores.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 660
+  fonte_stn_descricao: Transferência de Recursos do Fundo Nacional de Assistência Social - FNAS
+  interpretacao: >-
+    Controle os recursos originários de transferências do Fundo Nacional
+    de Assistência Social - Lei Federal nº 8.742, 07/12/1993.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 661
+  fonte_stn_descricao: Transferência de Recursos dos Fundos Estaduais de Assistência Social
+  interpretacao: >-
+    Controle dos recursos originários de transferências dos fundos estaduais
+    de assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 662
+  fonte_stn_descricao: Transferências de Recursos dos Fundos Municipais de Assistência Social
+  interpretacao: >-
+    Controle os recursos originários de transferência dos fundos municipais
+    de assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 665
+  fonte_stn_descricao: Transferências de Convênios e Instrumentos Congêneres vinculados à Assistência Social
+  interpretacao: >-
+    Controle dos recursos originários de transferências em decorrência
+    da celebração de convênios e instrumentos congêneres cuja destinação encontra-se
+    vinculada a programas da assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 669
+  fonte_stn_descricao: Outros Recursos Vinculados à Assistência Social
+  interpretacao: >-
+    Controle dos demais recursos vinculados à Assistência Social, não
+    enquadrados nas especificações anteriores.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 700
+  fonte_stn_descricao: Outras Transferências de Convênios ou Instrumentos Congêneres da União
+  interpretacao: >-
+    Controle dos recursos originários de transferências federais em decorrência
+    da celebração de convênios e instrumentos congêneres cuja destinação encontra-se
+    vinculada aos seus objetos. Não serão controlados por esta fonte os recursos de
+    convênios vinculados a programas da educação, da saúde e da assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 701
+  fonte_stn_descricao: Outras Transferências de Convênios ou Instrumentos Congêneres dos Estados
+  interpretacao: >-
+    Controle dos recursos originários de transferências estaduais em
+    decorrência da celebração de convênios e instrumentos congêneres, cuja destinação
+    encontra-se vinculada aos seus objetos. Não serão controlados por esta fonte os
+    recursos de convênios ou contratos de repasse vinculados a programas da educação,
+    da saúde e da assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 702
+  fonte_stn_descricao: Outras Transferências de Convênios ou Instrumentos Congêneres dos Municípios
+  interpretacao: >-
+    Controle dos recursos originários de transferências de municípios
+    em decorrência da celebração de convênios e instrumentos congêneres, cuja destinação
+    encontra-se vinculada aos seus objetos. Não serão controlados por esta fonte os
+    recursos de convênios ou contratos de repasse vinculados a programas da educação,
+    da saúde e da assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 703
+  fonte_stn_descricao: Outras Transferências de Convênios ou Instrumentos Congêneres de outras Entidades
+  interpretacao: >-
+    Controle dos recursos originários de transferências de entidades
+    privadas, estrangeiras ou multigovernamentais em virtude de assinatura de convênios
+    e instrumentos congêneres, cuja destinação encontra-se vinculada aos seus objetos.
+    Não serão controlados por esta fonte os recursos de convênios ou contratos de
+    repasse vinculados a programas da educação, da saúde e da assistência social.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 704
+  fonte_stn_descricao: Transferências da União Referentes a Compensações Financeiras pela Exploração de Recursos Naturais
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, originários da arrecadação
+    de royalties do petróleo, do gás natural, da cota-parte do bônus de assinatura
+    de contrato de partilha de produção, exceto os recursos provenientes da Lei nº
+    12.858/2013, destinados às áreas da saúde ou da educação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 705
+  fonte_stn_descricao: Transferências dos Estados Referentes a Compensações Financeiras pela Exploração de Recursos Naturais
+  interpretacao: >-
+    Controle dos recursos transferidos pelos Estados, originários da
+    arrecadação de royalties do petróleo, do gás natural, da cota-parte do bônus de
+    assinatura de contrato de partilha de produção.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 706
+  fonte_stn_descricao: Transferência Especial da União
+  interpretacao: >-
+    Controle dos recursos transferidos pela União provenientes de emendas
+    individuais impositivas ao orçamento da União, por meio de transferências especiais,
+    nos termos do art. 166-A da Constituição Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 707
+  fonte_stn_descricao: Transferências da União - inciso I do art. 5º da Lei Complementar 173/2020
+  interpretacao: >-
+    Controle dos recursos provenientes de transferência da União com
+    base no disposto no inciso I do art. 5º da Lei Complementar 173, de 27 de maio
+    de 2020.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 708
+  fonte_stn_descricao: Transferência da União Referente à Compensação Financeira de Recursos Minerais
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, referentes à compensação
+    financeira pela exploração de recursos minerais em atendimento às destinações
+    e vedações previstas na legislação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 709
+  fonte_stn_descricao: Transferência da União referente à Compensação Financeira de Recursos Hídricos
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, referentes à compensação
+    financeira de recursos hídricos em atendimento às destinações e vedações previstas
+    na legislação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 710
+  fonte_stn_descricao: Transferência Especial dos Estados
+  interpretacao: >-
+    Controle dos recursos transferidos pelos Estados provenientes de
+    emendas individuais impositivas ao orçamento desses entes, por meio de transferências
+    especiais, nos termos das constituições estaduais que reproduziram o disposto
+    no art. 166-A da Constituição Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 711
+  fonte_stn_descricao: Demais Transferências Obrigatórias não Decorrentes de Repartições de Receitas.
+  interpretacao: >-
+    Controla os recursos originários de transferências obrigatórias da
+    União que não decorram de repartição de receitas, como as transferências a título
+    de auxílio ou apoio financeiro, e para os quais não tenha sido criada fonte ou
+    destinação de receitas específica.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 712
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do Fundo Penitenciário - FUNPEN
+  interpretacao: >-
+    Controla as transferências obrigatórias de recursos do Fundo Penitenciário
+    Nacional - FUNPEN.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 713
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do Fundo de Segurança Pública - FSP
+  interpretacao: >-
+    Controla as transferências obrigatórias de recursos do Fundo de Segurança
+    Pública - FSP
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 714
+  fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do Fundo de Amparo ao Trabalhador - FAT
+  interpretacao: >-
+    Controla as transferências obrigatórias de recursos do Fundo de Amparo
+    ao Trabalhador - FAT
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 715
+  fonte_stn_descricao: Transferências Destinadas ao Setor Cultural - LC nº 195/2022 - Art. 5º - Audiovisual
+  interpretacao: >-
+    Controla a parcela dos recursos provenientes das transferências efetuadas
+    pela União destinadas ao setor cultural, especificamente ao setor audiovisual,
+    como ação emergencial adotada em decorrência dos efeitos econômicos e sociais
+    da pandemia da covid-19, em cumprimento ao Art. 5º da Lei Complementar nº 195,
+    de 8 de julho de 2022.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 716
+  fonte_stn_descricao: Transferências Destinadas ao Setor cultural - LC nº 195/2022 - Art. 8º - Demais Setores da Cultura
+  interpretacao: >-
+    Controla a parcela dos recursos provenientes das transferências efetuadas
+    pela União destinadas ao setor cultural, como ação emergencial adotada em decorrência
+    dos efeitos econômicos e sociais da pandemia da covid-19, em cumprimento ao Art.
+    8º da Lei Complementar nº 195, de 8 de julho de 2022
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 717
+  fonte_stn_descricao: Assistência Financeira Transporte Coletivo - Art. 5º, Inciso IV, EC nº 123/2022
+  interpretacao: >-
+    Controla os recursos provenientes das transferências da União a título
+    de assistência financeira a serem utilizados no custeio da garantia prevista no
+    §2º do art. 230 da CF, de gratuidade dos transportes coletivos urbanos aos maiores
+    de 65 anos, conforme prevê o inciso IV, art. 5º, da Emenda Constitucional nº 123/2022.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 718
+  fonte_stn_descricao: Auxílio Financeiro - Outorga Crédito Tributário ICMS - Art. 5º, Inciso V, EC nº 123/2022
+  interpretacao: >-
+    Controla os recursos provenientes das transferências da União a título
+    de auxílio financeiro para os Estados e o Distrito Federal que outorgarem créditos
+    tributários do Imposto sobre Operações relativas à Circulação de Mercadorias e
+    sobre Prestações de Serviços de Transporte Interestadual e Intermunicipal e de
+    Comunicação (ICMS) aos produtores ou distribuidores de etanol hidratado em seu
+    território, em montante equivalente ao valor recebido, conforme prevê o Inciso
+    V, art. 5º, da Emenda Constitucional nº 123/2022.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 719
+  fonte_stn_descricao: Transferências da Política Nacional Aldir Blanc de Fomento à Cultura - Lei nº 14.399/2022
+  interpretacao: >-
+    Controla os recursos provenientes de transferências efetuadas pela
+    União em decorrência da Política Nacional Aldir Blanc de Fomento à Cultura previstas
+    no art. 6º da Lei nº 14.399, de 8 de julho de 2022.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 749
+  fonte_stn_descricao: Outras vinculações de transferências
+  interpretacao: >-
+    Controle dos recursos de outras transferências vinculadas, não enquadrados
+    nas especificações anteriores.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 750
+  fonte_stn_descricao: Recursos da Contribuição de Intervenção no Domínio Econômico - CIDE
+  interpretacao: >-
+    Controle dos recursos recebidos pelos Estados, Distrito Federal e
+    Municípios, decorrentes da distribuição da arrecadação da União com a CIDE - Combustíveis,
+    com base no disposto na Lei nº 10.336/2001.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 751
+  fonte_stn_descricao: Recursos da Contribuição para o Custeio do Serviço de Iluminação Pública - COSIP
+  interpretacao: >-
+    Controle dos recursos da COSIP, nos termos do artigo 149-A da Constituição
+    Federal da República.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 752
+  fonte_stn_descricao: Recursos Vinculados ao Trânsito
+  interpretacao: >-
+    Controle dos recursos com a cobrança das multas de trânsito nos termos
+    do art. 320 da Lei nº 9.503/1997 - Código de Trânsito Brasileiro.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 753
+  fonte_stn_descricao: Recursos Provenientes de Taxas, Contribuições e Preços Públicos
+  interpretacao: >-
+    Controle dos recursos de taxas, contribuições e preços públicos vinculados
+    conforme legislações específicas.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 754
+  fonte_stn_descricao: Recursos de Operações de Crédito
+  interpretacao: >-
+    Controle dos recursos originários de operações de crédito, exceto
+    as operações cuja aplicação esteja destinada a programas de educação e saúde.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 755
+  fonte_stn_descricao: Recursos de Alienação de Bens/Ativos - Administração Direta
+  interpretacao: >-
+    Controle dos recursos decorrentes da alienação de bens da Administração
+    Direta, nos termos do art. 44 da Lei Complementar nº 101/2000.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 756
+  fonte_stn_descricao: Recursos de Alienação de Bens/Ativos - Administração Indireta
+  interpretacao: >-
+    Controle dos recursos decorrentes da alienação de bens da Administração
+    Indireta, nos termos do art. 44 da Lei Complementar nº 101/2000.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 757
+  fonte_stn_descricao: Recursos de Depósitos Judiciais - Lides das quais o Ente faz parte
+  interpretacao: >-
+    Controle dos recursos de depósitos judiciais apropriados pelo ente
+    de lides das quais o ente faz parte, com base na Lei Complementar nº 151/2015,
+    no art. 101 do ADCT da Constituição Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 758
+  fonte_stn_descricao: Recursos de Depósitos Judiciais - Lides das quais o Ente não faz parte
+  interpretacao: >-
+    Controle dos recursos de depósitos judiciais apropriados pelo ente
+    de lides das quais o ente não faz parte, com base no art. 101 do ADCT da Constituição
+    Federal.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 759
+  fonte_stn_descricao: Recursos Vinculados a Fundos
+  interpretacao: >-
+    Controle dos recursos vinculados a fundos, com exceção dos fundos
+    relacionados à saúde, à educação, à assistência social e aos regimes de previdência.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 760
+  fonte_stn_descricao: Recursos de Emolumentos, Taxas e Custas
+  interpretacao: >-
+    Controle dos recursos de emolumentos, taxas e outros recursos arrecadados,
+    judiciais ou extrajudiciais, observado o disposto em legislações específicas.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 761
+  fonte_stn_descricao: Recursos Vinculados ao Fundo de Combate e Erradicação da Pobreza
+  interpretacao: >-
+    Controle dos recursos vinculados ao Fundo de Combate e Erradicação
+    da Pobreza, na forma prevista nos art. 82 do ADCT e da Lei Complementar nº 111,
+    de 6 de julho de 2001.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 799
+  fonte_stn_descricao: Outras Vinculações Legais
+  interpretacao: >-
+    Controle de outros recursos vinculados por lei, não enquadrados nas
+    especificações anteriores.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 800
+  fonte_stn_descricao: Recursos Vinculados ao RPPS - Fundo em Capitalização (Plano Previdenciário)
+  interpretacao: >-
+    Controle dos recursos vinculados ao fundo em capitalização do RPPS.
+    Esse plano existe tanto nos entes que segregaram quanto nos que não segregaram
+    a massa dos segurados, observando-se o disposto na Portaria MF nº 464/2018. Na
+    fase das despesas, será necessário associar esta fonte ao marcador que identifica
+    a qual Poder ou Órgão se refere a despesa quando ela é executada no PO RPPS.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 801
+  fonte_stn_descricao: Recursos Vinculados ao RPPS - Fundo em Repartição (Plano Financeiro)
+  interpretacao: >-
+    Controle dos recursos vinculados ao fundo em repartição do RPPS.
+    Esse plano deve existir somente nos entes que segregaram a massa dos segurados,
+    observando-se o disposto na Portaria MF nº 464/2018. Na fase da despesa, será
+    necessário associar esta fonte ao marcador que identifica a qual Poder ou Órgão
+    se refere a despesa quando ela é executada no PO RPPS.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 802
+  fonte_stn_descricao: Recursos Vinculados ao RPPS - Taxa de Administração
+  interpretacao: >-
+    Controle dos recursos destinados ao custeio das despesas necessárias
+    à organização e ao funcionamento da unidade gestora do RPPS, observando-se o disposto
+    na Portaria MPS nº 402/2008 e na Portaria MF nº 464/2018, ambas alteradas pela
+    Portaria ME nº 19.451/2020.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 803
+  fonte_stn_descricao: Recursos Vinculados ao Sistema de Proteção Social dos Militares (SPSM)
+  interpretacao: >-
+    Controle dos recursos vinculados ao Sistema de Proteção Social dos
+    Militares (SPSM), com base na Lei nº 6.880/1980 (Estatuto dos Militares), alterada
+    pela Lei nº 13.954/2019.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 860
+  fonte_stn_descricao: Recursos Extraorçamentários Vinculados a Precatórios
+  interpretacao: >-
+    Controle dos recursos financeiros junto aos tribunais de justiça
+    vinculados ao pagamento de precatórios.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 861
+  fonte_stn_descricao: Recursos Extraorçamentários Vinculados a Depósitos Judiciais
+  interpretacao: >-
+    Controle dos recursos financeiros junto aos tribunais de justiça
+    vinculados aos depósitos judiciais.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 862
+  fonte_stn_descricao: Recursos de Depósitos de Terceiros
+  interpretacao: >-
+    Controle dos recursos financeiros decorrentes de depósitos de terceiros.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 869
+  fonte_stn_descricao: Outros Recursos Extraorçamentários
+  interpretacao: >-
+    Controle dos demais recursos financeiros extraorçamentários, como,
+    por exemplo, retenções e consignações.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 880
+  fonte_stn_descricao: Recursos Próprios dos Consórcios
+  interpretacao: >-
+    Controle dos recursos próprios dos Consórcios Públicos (utilizada
+    pelos consórcios públicos)
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 898
+  fonte_stn_descricao: Recursos a Classificar
+  interpretacao: >-
+    Classificação temporária enquanto não se identifica a correta vinculação.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 899
+  fonte_stn_descricao: Outros Recursos Vinculados
+  interpretacao: >-
+    Controle dos recursos cuja aplicação seja vinculada e não tenha sido
+    enquadrado em outras especificações.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'

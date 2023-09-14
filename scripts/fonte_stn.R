@@ -1,5 +1,6 @@
 library(data.table)
-library(readxl)
+library(yaml)
 
-fonte_stn <- read_excel("data-raw/fonte_stn.xlsx")
+fonte_stn <- yaml.load_file("data-raw/fonte_stn.yaml") |> rbindlist()
+names(fonte_stn) <- toupper(names(fonte_stn))
 readr::write_excel_csv2(fonte_stn, "data/fonte_stn.csv", quote = "needed")
