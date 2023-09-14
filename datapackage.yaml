@@ -36,6 +36,7 @@ resources:
       - [Portaria STN nº 1.445, de 14/06/2022](https://in.gov.br/en/web/dou/-/portaria-n-1.445-de-14-de-junho-de-2022-408494662)
       - [Portaria STN nº 1.566, de 31/08/2022](https://in.gov.br/en/web/dou/-/portaria-n-1.566-de-31-de-agosto-de-2022-426188569)
       - [Portaria STN nº 10.463, de 07/12/2022](https://in.gov.br/en/web/dou/-/portaria-stn-n-10.463-de-7-de-dezembro-de-2022-449271100)
+      - [Portaria STN nº 688, de 06/07/2023](https://www.in.gov.br/en/web/dou/-/portaria-stn/mf-n-688-de-6-de-julho-de-2023-495190675)
     path: data/fonte_stn.csv
     format: csv
     encoding: utf-8
