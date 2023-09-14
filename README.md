@@ -6,4 +6,6 @@ A Portaria STN/SOF nº 20/2021 estabeleceu, em seu artigo 3º, a padronização,
 
 Por sua vez, a Portaria STN n° 710/2021 e suas atualizações são responsáveis por estabelecer a classificação, das fontes de recursos, a ser utilizada por Estados, Distrito Federal e Municípios.
 
-Os critérios dessa matriz, aprovada pela Nota Técnica GTFR 01/2023 - SEF/STE - SEPLAG/SPLOR, serão utilizados para fins de transparência ativa e envio de informações à Secretaria do Tesouro Nacional sobre a elaboração e execução do orçamento estadual de forma provisória e excepcional durante os exercícios financeiros de 2023 e 2024.
+Os critérios dessa matriz, aprovada pela Nota Técnica GTFR 01/2023 - SEF/STE - SEPLAG/SPLOR[^20230914T101952], serão utilizados para fins de transparência ativa e envio de informações à Secretaria do Tesouro Nacional sobre a elaboração e execução do orçamento estadual de forma provisória e excepcional durante os exercícios financeiros de 2023 e 2024.
+
+[^20230914T101952]: Nota técnica aprovada no âmbito do processo SEI 1500.01.0054727/2023-12.
