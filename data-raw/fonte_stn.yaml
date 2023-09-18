@@ -19,8 +19,9 @@
 - fonte_stn_cod: 502
   fonte_stn_descricao: Recursos não vinculados da compensação de impostos.
   interpretacao: >-
-    Controle dos recursos não vinculados provenientes da compensação
-    de impostos para atendimento ao disposto no artigo 9º da LC 141/2012.
+    Controle dos recursos não vinculados provenientes da compensação de impostos. 
+    Essa fonte de recursos deverá ser associada ao marcador que identifica as despesas que 
+    podem ser consideradas para cumprimento dos limites mínimos de aplicação em ASPS e em MDE.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 540
@@ -136,11 +137,11 @@
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 573
-  fonte_stn_descricao: Royalties do Petróleo e Gás Natural Vinculados à Educação
+  fonte_stn_descricao: Royalties e Participação Especial de Petróleo e Gás Natural Vinculados à Educação - Lei nº 12.858/2013
   interpretacao: >-
     Controle dos recursos vinculados à Educação, originários de transferências
-    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
-    da Lei nº 12.858/2013.
+    recebidas pelos entes, relativos a Royalties e Participação Especial com base no art. 2º da
+    Lei nº 12.858/2013.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 574
@@ -223,6 +224,13 @@
     Constituição Federal.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 605
+  fonte_stn_descricao: Assistência financeira da União destinada à complementação ao pagamento dos pisos salariais para profissionais da enfermagem.
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, a título de assistência financeira complementar, para o cumprimento dos pisos salariais profissionais nacionais para o enfermeiro, 
+    o técnico de enfermagem, o auxiliar de enfermagem e a parteira, conforme estabelecido pela CF/88, art. 198, §§12 a 15.
+  dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 621
   fonte_stn_descricao: Transferências Fundo a Fundo de Recursos do SUS provenientes do Governo Estadual
   interpretacao: >-
@@ -269,10 +277,10 @@
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 635
-  fonte_stn_descricao: Royalties do Petróleo e Gás Natural vinculados à Saúde
+  fonte_stn_descricao: Royalties e Participação Especial de Petróleo e Gás Natural vinculados à Saúde - Lei nº 12.858/2013
   interpretacao: >-
     Controle dos recursos vinculados à Saúde, originários de transferências
-    recebidas pelos entes, relativos a Royalties e Participação Especial - Art. 2º
+    recebidas pelos entes, relativos a Royalties e Participação Especial com base no art. 2º 
     da Lei nº 12.858/2013.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
@@ -375,7 +383,7 @@
     de contrato de partilha de produção, exceto os recursos provenientes da Lei nº
     12.858/2013, destinados às áreas da saúde ou da educação.
   dt_inicio_vigencia: '2023-01-01'
-  dt_fim_vigencia: '9999-12-01'
+  dt_fim_vigencia: '2024-01-01'
 - fonte_stn_cod: 705
   fonte_stn_descricao: Transferências dos Estados Referentes a Compensações Financeiras pela Exploração de Recursos Naturais
   interpretacao: >-
@@ -502,6 +510,23 @@
     União em decorrência da Política Nacional Aldir Blanc de Fomento à Cultura previstas
     no art. 6º da Lei nº 14.399, de 8 de julho de 2022.
   dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 720
+  fonte_stn_descricao: Transferências da União Referentes às participações na exploração de Petróleo e Gás Natural destinadas ao FEP - Lei 9.478/1997
+  interpretacao: >-
+    Transferências da União referentes às participações na exploração de petróleo, gás natural e outros hidrocarbonetos fluidos, 
+    destinadas ao Fundo Especial - FEP, conforme estabelece o art. 50-F da Lei 9.478/97, 
+    exceto os recursos obrigatórios para educação e saúde de que trata a Lei 12.858/2013.
+  dt_inicio_vigencia: '2024-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 721
+  fonte_stn_descricao: Transferências da União Referentes a Cessão Onerosa de Petróleo - Lei nº 13.885/2019
+  interpretacao: >-
+    Controle dos recursos transferidos pela União, provenientes da cessão onerosa à Petróleo Brasileiro S.A. - PETROBRAS, 
+    do exercício das atividades de pesquisa e lavra de petróleo, gás natural e outros hidrocarbonetos fluidos, 
+    originários dos leilões dos volumes excedentes ao limite a que se refere o § 2º do art. 1º da Lei nº 12.276, 
+    conforme estabelecido na Lei nº 13.885/2019.
+  dt_inicio_vigencia: '2024-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 749
   fonte_stn_descricao: Outras vinculações de transferências
