@@ -1,0 +1,17 @@
+fields:
+    - name: FONTE_STN_COD
+      type: integer
+    - name: FONTE_STN_DESCRICAO
+      type: string
+    - name: UO_COD
+      type: integer
+    - name: UO_SIGLA
+      type: string
+    - name: FONTE_COD
+      type: integer
+    - name: FONTE_DESC
+      type: string
+    - name: RECEITA_COD
+      type: integer
+    - name: RECEITA_DESC
+      type: string
