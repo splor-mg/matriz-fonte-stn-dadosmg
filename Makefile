@@ -1,6 +1,6 @@
-.PHONY: all transform publish
+.PHONY: all transform check publish
 
-all: transform publish
+all: transform check publish
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv
 
@@ -18,6 +18,9 @@ data/matriz_receita_desc.xlsx: scripts/matriz_receita_desc.R data/matriz_receita
 
 data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa.csv
 	Rscript $<
+
+check:
+	frictionless validate datapackage.yaml
 
 publish:
 	dpckan --datapackage datapackage.yaml dataset update
