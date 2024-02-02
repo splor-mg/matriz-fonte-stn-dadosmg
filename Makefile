@@ -13,10 +13,10 @@ data/matriz_despesa.csv: scripts/matriz_despesa.R data-raw/exec_desp.xlsx
 data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
 	Rscript $<
 
-data/matriz_receita_desc.xlsx: scripts/matriz_receita_desc.R data/matriz_receita.csv
+data/matriz_receita_desc.xlsx: scripts/matriz_receita_desc.R data/matriz_receita.csv data/fonte_stn.csv
 	Rscript $<
 
-data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa.csv
+data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa.csv data/fonte_stn.csv
 	Rscript $<
 
 check:
@@ -24,3 +24,6 @@ check:
 
 publish:
 	dpckan --datapackage datapackage.yaml dataset update
+
+clean:
+	rm -f data/*.csv data/*.xlsx

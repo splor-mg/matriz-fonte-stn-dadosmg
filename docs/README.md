@@ -2,15 +2,12 @@
 
 ## Pré-requisitos
 
-Para criar um ambiente chamado `venv`, ativar o mesmo e instalar as dependências execute:
-
-```
-python -m venv venv
-. venv/Scripts/activate
-python -m pip install -r requirements.txt
-```
-
 O dpckan necessita da versão v4 do frictionless-py para funcionar corretamente (vide [dpckan#202](https://github.com/transparencia-mg/dpckan/issues/202)).
+
+```
+docker build --secret id=secret,src=.env --tag matriz-fonte-stn-dadosmg .
+docker run -it --rm --mount type=bind,source=$PWD,target=/project matriz-fonte-stn-dadosmg bash
+```
 
 ## Uso
 

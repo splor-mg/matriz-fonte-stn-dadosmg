@@ -1,0 +1,13 @@
+Package: matriz.fonte.stn
+Imports:
+    renv,
+    relatorios,
+    yaml,
+    readr,
+    readxl,
+    writexl,
+    reest
+Remotes:
+    bitbucket::dcgf/relatorios,
+    bitbucket::dcgf/reest
+Encoding: UTF-8
