@@ -383,7 +383,7 @@
     de contrato de partilha de produção, exceto os recursos provenientes da Lei nº
     12.858/2013, destinados às áreas da saúde ou da educação.
   dt_inicio_vigencia: '2023-01-01'
-  dt_fim_vigencia: '2024-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 705
   fonte_stn_descricao: Transferências dos Estados Referentes a Compensações Financeiras pela Exploração de Recursos Naturais
   interpretacao: >-
@@ -518,7 +518,7 @@
     destinadas ao Fundo Especial - FEP, conforme estabelece o art. 50-F da Lei 9.478/97, 
     exceto os recursos obrigatórios para educação e saúde de que trata a Lei 12.858/2013.
   dt_inicio_vigencia: '2024-01-01'
-  dt_fim_vigencia: '9999-12-01'
+  dt_fim_vigencia: '2024-01-01'
 - fonte_stn_cod: 721
   fonte_stn_descricao: Transferências da União Referentes a Cessão Onerosa de Petróleo - Lei nº 13.885/2019
   interpretacao: >-
@@ -527,7 +527,7 @@
     originários dos leilões dos volumes excedentes ao limite a que se refere o § 2º do art. 1º da Lei nº 12.276, 
     conforme estabelecido na Lei nº 13.885/2019.
   dt_inicio_vigencia: '2024-01-01'
-  dt_fim_vigencia: '9999-12-01'
+  dt_fim_vigencia: '2024-01-01'
 - fonte_stn_cod: 749
   fonte_stn_descricao: Outras vinculações de transferências
   interpretacao: >-
