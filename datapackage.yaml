@@ -17,6 +17,11 @@ resources:
             delimiter: ;
     schema: schemas/matriz_receita.yaml
 -   profile: tabular-data-resource
+    name: matriz_receita_desc
+    format: xlsx
+    path: data/matriz_receita_desc.xlsx
+    schema: schemas/matriz_receita_desc.yaml
+-   profile: tabular-data-resource
     name: matriz_despesa
     title: Matriz de correspondência - Despesa
     path: data/matriz_despesa.csv
@@ -25,6 +30,11 @@ resources:
     dialect:
             delimiter: ;
     schema: schemas/matriz_despesa.yaml
+-   profile: tabular-data-resource
+    name: matriz_despesa_desc
+    format: xlsx
+    path: data/matriz_despesa_desc.xlsx
+    schema: schemas/matriz_despesa_desc.yaml
 -   profile: tabular-data-resource
     name: fonte_stn
     title: Classificação por fonte ou destinação de recursos para Estados, Distrito Federal e Municípios

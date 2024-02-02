@@ -1,0 +1,21 @@
+fields:
+  - name: FONTE_STN_COD
+    type: integer
+  - name: FONTE_STN_DESCRICAO
+    type: string
+  - name: UO_COD
+    type: integer
+  - name: UO_SIGLA
+    type: string
+  - name: ACAO_COD
+    type: integer
+  - name: ACAO_DESC
+    type: string
+  - name: GRUPO_COD
+    type: integer
+  - name: FONTE_COD
+    type: integer
+  - name: FONTE_DESC
+    type: string
+  - name: IPU_COD
+    type: integer

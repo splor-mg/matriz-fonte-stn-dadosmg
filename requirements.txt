@@ -9,7 +9,7 @@ commonmark==0.9.1
 decorator==5.1.1
 docopt==0.6.2
 dpckan==0.1.21
-frictionless==4.16.6
+frictionless[excel]==4.16.6
 frictionless-ckan-mapper==1.0.6
 humanize==4.6.0
 idna==3.4
