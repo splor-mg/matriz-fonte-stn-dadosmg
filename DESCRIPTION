@@ -6,8 +6,8 @@ Imports:
     readr,
     readxl,
     writexl,
-    reest
+    data.table,
+    R.utils
 Remotes:
-    bitbucket::dcgf/relatorios,
-    bitbucket::dcgf/reest
+    bitbucket::dcgf/relatorios
 Encoding: UTF-8
