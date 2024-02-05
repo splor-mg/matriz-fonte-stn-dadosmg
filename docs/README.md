@@ -6,7 +6,7 @@ O dpckan necessita da versão v4 do frictionless-py para funcionar corretamente 
 
 ```
 docker build --secret id=secret,src=.env --tag matriz-fonte-stn-dadosmg .
-docker run -it --rm --mount type=bind,source=$PWD,target=/project matriz-fonte-stn-dadosmg bash
+docker run -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY -e GITHUB_TOKEN=$GITHUB_TOKEN -it --rm --mount type=bind,source=$PWD,target=/project matriz-fonte-stn-dadosmg bash
 ```
 
 ## Uso
