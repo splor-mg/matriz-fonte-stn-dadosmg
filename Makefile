@@ -1,13 +1,16 @@
-.PHONY: all transform check publish
+.PHONY: all extract transform check publish
 
-all: transform check publish
+all: extract transform check publish
+
+extract:
+	dpm install
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv
 
-data/matriz_receita.csv: scripts/matriz_receita.R data-raw/exec_rec_prev_inicial.xlsx
+data/matriz_receita.csv: scripts/matriz_receita.R datapackages/*
 	Rscript $<
 
-data/matriz_despesa.csv: scripts/matriz_despesa.R data-raw/exec_desp.xlsx
+data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/*
 	Rscript $<
 
 data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
