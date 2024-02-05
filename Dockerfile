@@ -6,7 +6,12 @@ RUN /rocker_scripts/install_python.sh
 
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt-get install -y git
+RUN apt-get install -y git 
+RUN apt-get install -y pipx
+RUN pipx ensurepath
+
+# https://github.com/pypa/pipx/issues/754
+RUN PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install git+https://github.com/splor-mg/dpm.git
 
 COPY requirements.txt .
 COPY DESCRIPTION .
