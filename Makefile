@@ -1,6 +1,6 @@
 .PHONY: all extract transform check publish sync session-info
 
-all: extract transform check publish
+all: session-info extract transform check publish
 
 extract:
 	dpm install
