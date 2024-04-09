@@ -1,4 +1,4 @@
-.PHONY: all extract transform check publish sync session-info
+.PHONY: all extract transform check publish push session-info
 
 all: session-info extract transform check publish
 
@@ -28,7 +28,7 @@ check:
 publish:
 	dpckan --datapackage datapackage.yaml dataset update
 
-sync:
+push:
 	git add data/*.csv data/*.xlsx
 	git commit --author="Automated <actions@users.noreply.github.com>" -m "Update data package at: $$(date +%Y-%m-%dT%H:%M:%SZ)" || exit 0
 
