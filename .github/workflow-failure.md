@@ -1,4 +1,4 @@
 ---
-title: Falha na execução do workflow em {% raw %}{{ date | date() }}{% endraw %}
+title: Falha na execução do workflow em {{ date | date() }}
 labels: bug
 ---
