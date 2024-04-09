@@ -25,16 +25,15 @@ jobs:
         tags: fjuniorr/${{ github.event.repository.name }}:latest
         cache-from: type=registry,ref=fjuniorr/${{ github.event.repository.name }}:latest
         cache-to: type=inline
-    - name: Install latest version of package relatorios
+    - name: ETL pipeline
       env: 
         BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: docker run -e BITBUCKET_USER=$BITBUCKET_USER -e BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD --mount type=bind,source=${PWD},target=/project fjuniorr/${{ github.event.repository.name }} Rscript -e "remotes::install_bitbucket('dcgf/relatorios', auth_user = Sys.getenv('BITBUCKET_USER'), password = Sys.getenv('BITBUCKET_PASSWORD'))"
-    - name: ETL pipeline
-      env: 
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
-      run: docker run -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project fjuniorr/${{ github.event.repository.name }} make all
+      run: |-
+        docker run -e BITBUCKET_USER=$BITBUCKET_USER -e BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD --mount type=bind,source=${PWD},target=/project fjuniorr/${{ github.event.repository.name }} Rscript -e "remotes::install_bitbucket('dcgf/relatorios', auth_user = Sys.getenv('BITBUCKET_USER'), password = Sys.getenv('BITBUCKET_PASSWORD'))"
+        docker run -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project fjuniorr/${{ github.event.repository.name }} make all
     - name: Push data package
       run: |-
         git config user.name "Automated"
