@@ -7,10 +7,10 @@ extract:
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv
 
-data/matriz_receita.csv: scripts/matriz_receita.R datapackages/**/datapackage.json
+data/matriz_receita.csv: scripts/matriz_receita.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2023/datapackage.json
 	Rscript $<
 
-data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/**/datapackage.json
+data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2023/datapackage.json
 	Rscript $<
 
 data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
