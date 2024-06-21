@@ -2,6 +2,8 @@ name: Updated
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron:  '14 10 * * 1-5'
 
 jobs:
   all:
