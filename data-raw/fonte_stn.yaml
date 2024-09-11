@@ -81,6 +81,15 @@
     entes federados (Precatórios Fundef).
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 545
+  fonte_stn_descricao: Recursos de Precatórios do FUNDEB (2007- 2020)
+  interpretacao: >-
+    Controle dos recursos decorrentes do recebimento de precatórios derivados de ações 
+    judiciais associadas aos repasses ao Fundo de Manutenção e Desenvolvimento da Educação 
+    Básica e de Valorização dos Profissionais da Educação (Fundeb) 2007-2020, para atendimento 
+    ao previsto no artigo 47-A da Lei nº 14.113, de 25 de dezembro de 2020.
+  dt_inicio_vigencia: '2025-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 550
   fonte_stn_descricao: Transferência do Salário-Educação
   interpretacao: >-
@@ -536,6 +545,20 @@
     conforme estabelecido na Lei nº 13.885/2019.
   dt_inicio_vigencia: '2024-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 747
+  fonte_stn_descricao: Outras vinculações de transferências da União
+  interpretacao: >-
+    Controle dos recursos de outras transferências vinculadas da União, não enquadrados nas 
+    especificações anteriores.
+  dt_inicio_vigencia: '2025-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 748
+  fonte_stn_descricao: Outras vinculações de transferências dos Estados
+  interpretacao: >-
+    Controle dos recursos de outras transferências vinculadas dos Estados, não enquadrados nas 
+    especificações anteriores.
+  dt_inicio_vigencia: '2025-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 749
   fonte_stn_descricao: Outras vinculações de transferências
   interpretacao: >-
@@ -674,6 +697,14 @@
     Militares (SPSM), com base na Lei nº 6.880/1980 (Estatuto dos Militares), alterada
     pela Lei nº 13.954/2019.
   dt_inicio_vigencia: '2023-01-01'
+  dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 804
+  fonte_stn_descricao: Demais Recursos Previdenciários
+  interpretacao: >-
+    Controle de demais recursos vinculados a benefícios previdenciários, como os benefícios 
+    mantidos sob responsabilidade financeira direta do Tesouro do ente Federativo, concedidos 
+    em atendimento a legislações específicas e que não foram incorporados ao RPPS.
+  dt_inicio_vigencia: '2025-01-01'
   dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 860
   fonte_stn_descricao: Recursos Extraorçamentários Vinculados a Precatórios
