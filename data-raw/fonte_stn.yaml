@@ -24,6 +24,14 @@
     podem ser consideradas para cumprimento dos limites mínimos de aplicação em ASPS e em MDE.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 503
+  fonte_stn_descricao: Apoio financeiro da União em decorrência de estado de calamidade pública.                       
+  interpretacao: >-
+    Controle dos recursos transferidos pela União a título de apoio financeiro com o objetivo 
+    de enfrentar situações de calamidade pública e suas consequências sociais e econômicas, como 
+    o apoio financeiro decorrente da Medida Provisória n° 1.222, de 21 de maio de 2024.
+  dt_inicio_vigencia: '2024-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 540
   fonte_stn_descricao: Transferências do FUNDEB - Impostos e Transferências de Impostos
   interpretacao: >-
