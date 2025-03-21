@@ -18,15 +18,21 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
+      env:
+        DOCKER_BUILDKIT: 1
+        BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
+        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
       with:
         context: .
         push: true
-        tags: fjuniorr/${{ github.event.repository.name }}:latest
-        cache-from: type=registry,ref=fjuniorr/${{ github.event.repository.name }}:latest
+        tags: splormg/${{ github.event.repository.name }}:latest
+        cache-from: type=registry,ref=splormg/${{ github.event.repository.name }}:latest
         cache-to: type=inline
+        secrets: |
+          id=bitbucket_user,env=BITBUCKET_USER
+          id=bitbucket_password,env=BITBUCKET_PASSWORD
     - name: ETL pipeline
       env: 
         BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
