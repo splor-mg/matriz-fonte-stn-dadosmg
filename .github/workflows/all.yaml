@@ -41,12 +41,6 @@ jobs:
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: docker run -e GITHUB_TOKEN=$GH_PAT -e BITBUCKET_USER=$BITBUCKET_USER -e BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project splormg/${{ github.event.repository.name }} bash -c "Rscript -e \"remotes::install_bitbucket('dcgf/relatorios', auth_user = Sys.getenv('BITBUCKET_USER'), password = Sys.getenv('BITBUCKET_PASSWORD'))\" && make all"
-    - name: Test CKAN API with authentication
-      env:
-        CKAN_KEY: ${{ secrets.CKAN_KEY }}
-      run: |
-        echo "Testing CKAN API with authentication..."
-        curl -H "Authorization: $CKAN_KEY" "${{ secrets.CKAN_HOST }}/api/3/action/package_list"
     - name: Push data package
       run: |-
         git config user.name "Automated"
