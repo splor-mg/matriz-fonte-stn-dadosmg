@@ -4,7 +4,7 @@ owner_org: secretaria-de-estado-de-planejamento-e-gestao-seplag
 resources:
 -   profile: data-resource
     name: anexo_nt_gtfr_01_2023
-    title: Anexo da Nota Técnica GTFR 01/2023 - SEF/STE - SEPLAG/SPLOR
+    title: Anexo da Nota Técnica GTFR 01/2023
     path: anexo_nt_gtfr_01_2023.pdf
     format: pdf
 -   profile: tabular-data-resource
