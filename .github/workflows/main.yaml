@@ -1,9 +1,14 @@
 name: Updated
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
+    # Executa de segunda a sexta-feira às 07:14 (Brasília) → 10:14 UTC
     - cron:  '14 10 * * 1-5'
+  repository_dispatch:
+    types: [version-updated]
 
 jobs:
   all:
@@ -11,6 +16,24 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    
+    - name: Install dependencies
+      run: poetry install --no-interaction --no-ansi
+    
+    - name: Check package versions
+      run: poetry run pacotes-check-version || true
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Login to DockerHub
@@ -22,25 +45,18 @@ jobs:
       uses: docker/build-push-action@v5
       env:
         DOCKER_BUILDKIT: 1
-        BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
       with:
         context: .
         push: true
-        tags: splormg/${{ github.event.repository.name }}:latest
-        cache-from: type=registry,ref=splormg/${{ github.event.repository.name }}:latest
+        tags: aidsplormg/${{ github.event.repository.name }}:latest
+        cache-from: type=registry,ref=aidsplormg/${{ github.event.repository.name }}:latest
         cache-to: type=inline
-        secrets: |
-          id=bitbucket_user,env=BITBUCKET_USER
-          id=bitbucket_password,env=BITBUCKET_PASSWORD
     - name: ETL pipeline
       env: 
-        BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
         GH_PAT: ${{ secrets.GH_PAT }}
-      run: docker run -e GITHUB_TOKEN=$GH_PAT -e BITBUCKET_USER=$BITBUCKET_USER -e BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project splormg/${{ github.event.repository.name }} bash -c "Rscript -e \"remotes::install_bitbucket('dcgf/relatorios', auth_user = Sys.getenv('BITBUCKET_USER'), password = Sys.getenv('BITBUCKET_PASSWORD'))\" && make all"
+      run: docker run -e GITHUB_TOKEN=$GH_PAT -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project aidsplormg/${{ github.event.repository.name }}:latest bash -c "poetry run dpm install && make all"
     - name: Push data package
       run: |-
         git config user.name "Automated"

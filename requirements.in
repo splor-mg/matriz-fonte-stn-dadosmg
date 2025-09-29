@@ -1,2 +1,3 @@
 dpckan==0.1.21
 frictionless[excel]==4.16.6
+dpm = {git = "https://github.com/splor-mg/dpm.git", branch = "main"}

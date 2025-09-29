@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "matriz-fonte-stn-dadosmg"
+version = "0.1.0"
+description = "Sistema para processamento de dados da matriz fonte STN"
+authors = ["Splor MG <contato@splor.mg>"]
+readme = "README.md"
+packages = [{include = "scripts"}]
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+dpckan = "0.1.21"
+frictionless = {extras = ["excel"], version = "4.16.6"}
+dpm = {git = "https://github.com/splor-mg/dpm.git", branch = "main"}
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.0.0"
+flake8 = "^6.0.0"
+mypy = "^1.0.0"
+pytest = "^7.0.0"
+
+[tool.poetry.scripts]
+# Scripts de configuração
+config = "scripts.config:main"
+extract-info = "scripts.extract_info:main"
+pacotes-check-version = "scripts.pacotes_check_version:main"
+update-ano = "scripts.ano_update:main_cli"
+
+# Scripts de Docker
+docker-build = "scripts.docker_build:main"
+docker-push = "scripts.docker_push:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

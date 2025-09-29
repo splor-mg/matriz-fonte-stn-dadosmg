@@ -1,10 +1,10 @@
 library(relatorios)
 library(data.table)
 
-alteracoes2023 <- fread("datapackages/armazem-siafi-2023/data/alteracoes_orcamentarias.csv.gz")
-alteracoes2024 <- fread("datapackages/armazem-siafi-2024/data/alteracoes_orcamentarias.csv.gz")
+alteracoesAnoAnterior <- fread("datapackages/armazem-siafi-2024/data/alteracoes_orcamentarias.csv.gz")
+alteracoesAnoCorrente <- fread("datapackages/armazem-siafi-2025/data/alteracoes_orcamentarias.csv.gz")
 
-exec_desp <- rbind(alteracoes2023, alteracoes2024)
+exec_desp <- rbind(alteracoesAnoAnterior, alteracoesAnoCorrente)
 names(exec_desp) <- toupper(names(exec_desp))
 exec_desp[, FONTE_STN_COD := is_fonte_stn_desp(exec_desp)]
 

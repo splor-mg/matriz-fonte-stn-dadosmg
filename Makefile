@@ -1,9 +1,11 @@
-.PHONY: all extract transform check publish push session-info
+.PHONY: all extract transform check publish push session-info config docker-build docker-push extract-info help
+
+include config.mk
 
 all: session-info extract transform check publish
 
 extract:
-	dpm install
+	poetry run dpm install
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv
 
@@ -34,8 +36,37 @@ push:
 	git push
 
 session-info:
-	dpm --version
+	poetry run dpm --version
 	Rscript -e "packageVersion('relatorios')"
 
 clean:
 	rm -f data/*.csv data/*.xlsx
+
+# =============================================================================
+# CONFIGURAÇÃO E DOCKER
+# =============================================================================
+
+config: ## Configura interativamente as variáveis Docker
+	@poetry run config
+
+docker-build: ## Constrói a imagem Docker
+	@poetry run docker-build
+
+docker-push: ## Envia a imagem Docker para o Docker Hub
+	@poetry run docker-push
+
+docker-build-push: ## Constrói e envia a imagem Docker para o Docker Hub
+	@echo "🔨 Construindo imagem Docker..."
+	@poetry run docker-build
+	@echo "📤 Enviando imagem para Docker Hub..."
+	@poetry run docker-push
+	@echo "✅ Build e push concluídos com sucesso!"
+
+extract-info: ## Extrai informações de versões da imagem Docker
+	@poetry run extract-info
+
+pacotes-check-version: ## Verifica e atualiza versões dos pacotes DCAF no GitHub
+	@poetry run pacotes-check-version
+
+update-ano: ## Atualiza anos nos arquivos do projeto (config.mk e scripts R)
+	@poetry run update-ano

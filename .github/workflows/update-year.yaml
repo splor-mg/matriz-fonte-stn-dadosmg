@@ -1,0 +1,97 @@
+name: Update Year
+
+on:
+  schedule:
+    # Executa todo dia 1 de fevereiro as 17:01 (Brasilia)
+    - cron: '1 20 * 2 *'
+  workflow_dispatch:
+
+jobs:
+  update-year:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      id: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+    
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-ansi
+    
+    - name: Update year in project files
+      id: update-year
+      run: |
+        echo "🔄 Executando atualização de anos..."
+        poetry run update-ano
+        echo "has_updates=$?" >> $GITHUB_OUTPUT
+    
+    - name: Check for changes
+      id: check-changes
+      run: |
+        echo "🔍 Verificando mudanças nos arquivos..."
+        if git diff --quiet config.mk scripts/matriz_despesa.R scripts/matriz_receita.R; then
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+          echo "✅ Nenhuma mudança detectada"
+        else
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "🔄 Mudanças detectadas nos arquivos:"
+          git diff --name-only
+          echo ""
+          echo "📋 Detalhes das mudanças:"
+          git diff --stat
+        fi
+    
+    - name: Commit and push changes
+      if: steps.check-changes.outputs.has_changes == 'true'
+      run: |
+        echo "💾 Preparando commit das mudanças..."
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add config.mk scripts/matriz_despesa.R scripts/matriz_receita.R
+        echo "📝 Arquivos adicionados ao commit:"
+        git diff --cached --name-only
+        echo ""
+        echo "📋 Resumo das mudanças:"
+        git diff --cached --stat
+        echo ""
+        current_year=$(date +%Y)
+        git commit -m "chore: Update year references to $current_year
+
+        - Updated ANO_MATRIZ in config.mk
+        - Updated year references in R scripts:
+          * matriz_despesa.R: $(($current_year-1)) and $current_year
+          * matriz_receita.R: $(($current_year-1)) and $current_year
+        
+        Automated update on $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        echo "🚀 Enviando mudanças para o repositório..."
+        git push
+        echo "✅ Mudanças enviadas com sucesso!"
+    
+    - name: Summary
+      if: steps.check-changes.outputs.has_changes == 'true'
+      run: |
+        echo "🎉 Atualização de ano concluída com sucesso!"
+        echo "📅 Ano atual: $(date +%Y)"
+        echo "📊 Arquivos atualizados:"
+        git diff --name-only HEAD~1
