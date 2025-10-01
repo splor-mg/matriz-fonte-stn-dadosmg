@@ -57,11 +57,35 @@ def build_docker_image(config, verbose=False):
     print(f"👤 Usuário: {config['DOCKER_USER']}")
     print(f"📅 Ano Matriz: {config['ANO_MATRIZ']}")
     print()
-    
-    # Comando docker buildx build
+
+    # Detectar branch e SHA curtos para espelhar tags do CI
+    try:
+        branch = subprocess.check_output([
+            'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+        ]).decode().strip()
+    except Exception:
+        branch = 'local'
+
+    try:
+        short_sha = subprocess.check_output([
+            'git', 'rev-parse', '--short', 'HEAD'
+        ]).decode().strip()
+    except Exception:
+        short_sha = 'unknown'
+
+    # Montar lista de tags: tag configurada, branch-sha e latest (se branch padrão)
+    image_base = f"{config['DOCKER_USER']}/{config['DOCKER_IMAGE']}"
+    tags = [
+        f"{image_base}:{config['DOCKER_TAG']}",                 # ex: matriz-stn2025
+        f"{image_base}:{branch}-{short_sha}",                   # ex: main-a1b2c3d
+    ]
+    default_branch = 'main'
+    if branch == default_branch:
+        tags.append(f"{image_base}:latest")
+
+    # Comando docker buildx build com múltiplas tags
     cmd = [
         "docker", "buildx", "build",
-        "--tag", full_image,
         "--secret", "id=secret,src=.env",
         "--build-arg", f"relatorios_version={config['RELATORIOS_VERSION']}",
         "--build-arg", f"execucao_version={config['EXECUCAO_VERSION']}",
@@ -72,7 +96,19 @@ def build_docker_image(config, verbose=False):
         "--build-arg", f"docker_image={config['DOCKER_IMAGE']}",
         "."
     ]
-    
+
+    # Inserir flags --tag para cada tag calculada (antes do contexto ".")
+    # Mantemos a ordem: configurada, branch-sha, (latest se default)
+    # cmd atualmente termina com "."; vamos reconstruí-lo para inserir tags antes do contexto
+    context_path = cmd.pop()  # remove "."
+    # Adiciona as múltiplas tags
+    tag_flags = []
+    for t in tags:
+        tag_flags.extend(["--tag", t])
+    cmd[3:3] = tag_flags  # insere após "docker buildx build"
+    # Reinsere o contexto ao final
+    cmd.append(context_path)
+
     if verbose:
         print("🔍 Comando executado:")
         print(" ".join(cmd))

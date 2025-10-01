@@ -54,6 +54,18 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: aidsplormg/${{ github.event.repository.name }}
+        tags: |
+          type=ref,event=branch
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=matriz-stn2025
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       env:
@@ -61,9 +73,20 @@ jobs:
       with:
         context: .
         push: true
-        tags: aidsplormg/${{ github.event.repository.name }}:latest
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          relatorios_version=v0.7.99
+          execucao_version=v0.5.27
+          reest_version=v0.2.8
+          ano_matriz=2025
+          docker_tag=matriz-stn2025
+          docker_user=aidsplormg
+          docker_image=matriz-fonte-stn-dadosmg
+        secrets: |
+          secret=${{ secrets.GH_PAT }}
         cache-from: type=registry,ref=aidsplormg/${{ github.event.repository.name }}:latest
-        cache-to: type=inline
+        cache-to: type=registry,ref=aidsplormg/${{ github.event.repository.name }}:latest,mode=max
     - name: ETL pipeline
       env: 
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
