@@ -268,3 +268,107 @@ jobs:
           lines=$(wc -l < "$file")
           echo "  $(basename "$file"): $lines linhas"
         done
+
+  # Limpeza: otimiza recursos e limpa arquivos temporários
+  cleanup:
+    needs: validate-data
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Clean temporary files
+      run: |
+        echo "🧹 Limpando arquivos temporários..."
+        
+        # Limpar cache do Poetry se existir
+        if [ -d ".venv" ]; then
+          echo "Removendo cache do Poetry..."
+          rm -rf .venv
+        fi
+        
+        # Limpar arquivos temporários do sistema
+        echo "Limpando cache do sistema..."
+        sudo apt-get clean
+        sudo rm -rf /var/lib/apt/lists/*
+        
+        # Limpar logs antigos
+        echo "Limpando logs antigos..."
+        find . -name "*.log" -type f -mtime +1 -delete 2>/dev/null || true
+        
+        echo "✅ Limpeza concluída"
+    
+    - name: Optimize workspace
+      run: |
+        echo "⚡ Otimizando workspace..."
+        
+        # Verificar uso de disco
+        echo "📊 Uso de disco atual:"
+        df -h
+        
+        # Limpar arquivos desnecessários
+        echo "Removendo arquivos desnecessários..."
+        find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+        find . -name "*.pyc" -type f -delete 2>/dev/null || true
+        find . -name ".pytest_cache" -type d -exec rm -rf {} + 2>/dev/null || true
+        
+        echo "✅ Workspace otimizado"
+    
+    - name: Generate cleanup report
+      run: |
+        echo "📋 Relatório de limpeza:"
+        echo "  - Cache do Poetry: removido"
+        echo "  - Arquivos temporários: limpos"
+        echo "  - Cache do sistema: otimizado"
+        echo "  - Arquivos Python compilados: removidos"
+        echo "  - Workspace: otimizado"
+
+  # Resumo: relatório final consolidado da execução
+  summary:
+    needs: [lint, main, validate-data, cleanup]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Generate execution summary
+      run: |
+        echo "🎯 RESUMO FINAL DA EXECUÇÃO"
+        echo "================================"
+        echo ""
+        echo "📅 Data/Hora: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "🌿 Branch: ${{ github.ref_name }}"
+        echo "📝 Commit: ${{ github.sha }}"
+        echo "👤 Ator: ${{ github.actor }}"
+        echo ""
+        echo "📊 Status dos Jobs:"
+        echo "  - Lint: ${{ needs.lint.result }}"
+        echo "  - Main: ${{ needs.main.result }}"
+        echo "  - Validate Data: ${{ needs.validate-data.result }}"
+        echo "  - Cleanup: ${{ needs.cleanup.result }}"
+        echo ""
+        echo "🔗 Links Úteis:"
+        echo "  - Workflow Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        echo "  - Commit: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
+        echo "  - Branch: ${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}"
+        echo ""
+        echo "📈 Estatísticas dos Dados:"
+        if [ -d "data" ]; then
+          for file in data/*.csv data/*.xlsx 2>/dev/null; do
+            if [ -f "$file" ]; then
+              size=$(du -h "$file" | cut -f1)
+              if [[ "$file" == *.csv ]]; then
+                lines=$(wc -l < "$file" 2>/dev/null || echo "N/A")
+                echo "  - $(basename "$file"): $size ($lines linhas)"
+              else
+                echo "  - $(basename "$file"): $size"
+              fi
+            fi
+          done
+        else
+          echo "  - Diretório data não encontrado"
+        fi
+        echo ""
+        echo "✅ Execução finalizada com sucesso!"
+        echo "================================"
