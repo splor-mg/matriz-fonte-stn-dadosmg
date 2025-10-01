@@ -10,6 +10,10 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   update-year:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
     
     - name: Set up Python
       id: setup-python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.8'
     
@@ -34,7 +38,7 @@ jobs:
     
     - name: Load cached venv
       id: cached-poetry-dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
