@@ -103,11 +103,14 @@ def validate_ano_matriz(ano):
     return True, None
 
 def show_preview(new_values):
-    """Mostra preview das mudanças"""
-    print(f"\n{Colors.YELLOW}{Colors.BOLD}📋 PREVIEW DAS MUDANÇAS{Colors.END}")
-    print(f"{Colors.YELLOW}{'─' * 30}{Colors.END}")
-    for key, value in new_values.items():
-        print(f"{Colors.BLUE}{key}{Colors.END} = {Colors.GREEN}{value}{Colors.END}")
+    """Mostra preview no formato do volumes-loa (sem diff)."""
+    print(f"\n{Colors.BLUE}{Colors.BOLD}📋 PREVIEW DAS CONFIGURAÇÕES{Colors.END}")
+    print(f"{Colors.BLUE}{'─' * 35}{Colors.END}")
+    # Ordem de exibição específica deste projeto
+    ordered_keys = ['ANO_MATRIZ', 'DOCKER_TAG', 'DOCKER_USER', 'DOCKER_IMAGE']
+    for key in ordered_keys:
+        value = new_values.get(key, '')
+        print(f"{key:<22} = {value}")
 
 def update_config_mk(values):
     """Atualiza as variáveis no config.mk"""
@@ -251,20 +254,41 @@ def main():
             print(f"{Colors.BLUE}{Colors.BOLD}⚡ MODO NÃO-INTERATIVO{Colors.END}")
             print(f"{Colors.BLUE}{'─' * 20}{Colors.END}")
             print(f"{Colors.GREEN}Usando configurações atuais do config.mk{Colors.END}\n")
-        
+        # Preview e confirmação (UX volumes-loa)
+        show_preview(new_values)
+        if not non_interactive:
+            try:
+                confirm = input("\nSalvar configurações? (y/N): ").strip().lower()
+            except KeyboardInterrupt:
+                confirm = 'n'
+        else:
+            confirm = 'y'
+
+        if confirm != 'y':
+            # Cancela: restaura backup e remove backup
+            print(f"\n{Colors.YELLOW}Operação cancelada. Restaurando backup...{Colors.END}")
+            restore_from_backup(backup_path)
+            cleanup_backup(backup_path)
+            print(f"{Colors.GREEN}✅ Estado original restaurado e backup removido{Colors.END}")
+            sys.exit(0)
+
         # PROTOCOLO DE CONFERÊNCIA: Finaliza com validação
         if finalize_config_update(new_values, backup_path, original_hash):
+            # Remover backup após sucesso
+            cleanup_backup(backup_path)
             # Verificar se houve mudanças reais
             config_path = Path("config.mk")
             with open(config_path, 'rb') as f:
                 new_hash = hashlib.md5(f.read()).hexdigest()
-            
             if new_hash == original_hash:
                 print(f"\n{Colors.BLUE}ℹ️  Configuração confirmada - valores atuais mantidos{Colors.END}")
             else:
                 print(f"\n{Colors.GREEN}🎉 Configuração atualizada com sucesso!{Colors.END}")
         else:
             print(f"\n{Colors.RED}❌ Falha na validação - configuração não foi salva{Colors.END}")
+            # Em caso de falha, restaurar e limpar
+            restore_from_backup(backup_path)
+            cleanup_backup(backup_path)
             sys.exit(1)
         
         # Mensagem informativa sobre próximo passo

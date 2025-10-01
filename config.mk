@@ -12,7 +12,7 @@
 # CONFIGURAÇÕES GERAIS
 # =============================================================================
 # Ano de referência para a matriz de fonte STN
-ANO_MATRIZ=2025
+ANO_MATRIZ=2022
 
 # =============================================================================
 # CONFIGURAÇÕES DOCKER
@@ -37,3 +37,18 @@ EXECUCAO_VERSION=v0.5.27
 
 # Reestimativa - DCAF
 REEST_VERSION=v0.2.8
+
+# =============================================================================
+# CONFIGURAÇÕES PARA COMANDO DOCKER
+# =============================================================================
+# Diretório fonte para montagem no container
+DOCKER_SRC_DIR := $(CURDIR)
+
+# Prefixo para Windows (winpty)
+WINPTY := ''
+
+# Imagem Docker completa
+DOCKER_IMAGE_FULL = $(DOCKER_USER)/$(DOCKER_IMAGE):$(DOCKER_TAG)
+
+# Comando para executar container interativo
+DOCKER_RUN_CMD = $(shell echo $(WINPTY) docker run --rm -ti -p 8787:8787 --mount type=bind,source=$(DOCKER_SRC_DIR),target=/project --name matriz-fonte-stn-dadosmg $(DOCKER_IMAGE_FULL) bash)

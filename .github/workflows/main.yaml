@@ -98,16 +98,26 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Load config variables
+      run: |
+        echo "RELATORIOS_VERSION=$(grep '^RELATORIOS_VERSION=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "EXECUCAO_VERSION=$(grep '^EXECUCAO_VERSION=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "REEST_VERSION=$(grep '^REEST_VERSION=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "ANO_MATRIZ=$(grep '^ANO_MATRIZ=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "DOCKER_TAG=$(grep '^DOCKER_TAG=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "DOCKER_USER=$(grep '^DOCKER_USER=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE=$(grep '^DOCKER_IMAGE=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+
     - name: Extract metadata
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: aidsplormg/${{ github.event.repository.name }}
+        images: ${{ env.DOCKER_USER }}/${{ github.event.repository.name }}
         tags: |
           type=ref,event=branch
           type=sha,prefix={{branch}}-
           type=raw,value=latest,enable={{is_default_branch}}
-          type=raw,value=matriz-stn2025
+          type=raw,value=${{ env.DOCKER_TAG }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
@@ -119,23 +129,28 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          relatorios_version=v0.7.99
-          execucao_version=v0.5.27
-          reest_version=v0.2.8
-          ano_matriz=2025
-          docker_tag=matriz-stn2025
-          docker_user=aidsplormg
-          docker_image=matriz-fonte-stn-dadosmg
+          relatorios_version=${{ env.RELATORIOS_VERSION }}
+          execucao_version=${{ env.EXECUCAO_VERSION }}
+          reest_version=${{ env.REEST_VERSION }}
+          ano_matriz=${{ env.ANO_MATRIZ }}
+          docker_tag=${{ env.DOCKER_TAG }}
+          docker_user=${{ env.DOCKER_USER }}
+          docker_image=${{ env.DOCKER_IMAGE }}
         secrets: |
           secret=${{ secrets.GH_PAT }}
-        cache-from: type=registry,ref=aidsplormg/${{ github.event.repository.name }}:latest
-        cache-to: type=registry,ref=aidsplormg/${{ github.event.repository.name }}:latest,mode=max
+        cache-from: type=registry,ref=${{ env.DOCKER_USER }}/${{ github.event.repository.name }}:latest
+        cache-to: type=registry,ref=${{ env.DOCKER_USER }}/${{ github.event.repository.name }}:latest,mode=max
     - name: ETL pipeline
       env: 
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
         GH_PAT: ${{ secrets.GH_PAT }}
-      run: docker run -e GITHUB_TOKEN=$GH_PAT -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project aidsplormg/${{ github.event.repository.name }}:latest bash -c "poetry run dpm install && make all"
+      run: |
+        # Executar todo o pipeline dentro do Docker para garantir consistência
+        docker run -e GITHUB_TOKEN=$GH_PAT -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY \
+          --mount type=bind,source=${PWD},target=/project \
+          aidsplormg/${{ github.event.repository.name }}:${{ env.DOCKER_TAG }} \
+          bash -c "make all"
     - name: Push data package
       run: |-
         git config user.name "Automated"

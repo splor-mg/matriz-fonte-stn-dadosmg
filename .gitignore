@@ -7,3 +7,8 @@ venv/
 datapackages/
 __pycache__/
 *.pyc
+
+# Windows system files
+desktop.ini
+Thumbs.db
+*.lnk
