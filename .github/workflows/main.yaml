@@ -148,3 +148,123 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         filename: .github/workflow-failure.md
+
+  # Validação: verifica integridade e qualidade dos dados gerados
+  validate-data:
+    needs: main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: 'pyproject.toml'
+    
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-ansi
+    
+    - name: Validate with Frictionless
+      run: poetry run frictionless validate datapackage.yaml
+    
+    - name: Check generated files exist
+      run: |
+        echo "🔍 Verificando se todos os arquivos foram gerados..."
+        required_files=(
+          "data/matriz_receita.csv"
+          "data/matriz_despesa.csv"
+          "data/fonte_stn.csv"
+          "data/matriz_receita_desc.xlsx"
+          "data/matriz_despesa_desc.xlsx"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Arquivo obrigatório não encontrado: $file"
+            exit 1
+          else
+            echo "✅ $file existe"
+          fi
+        done
+        echo "✅ Todos os arquivos obrigatórios foram gerados"
+    
+    - name: Validate CSV structure
+      run: |
+        echo "🔍 Validando estrutura dos arquivos CSV..."
+        
+        # Verificar se CSVs têm cabeçalho e dados
+        for csv in data/matriz_receita.csv data/matriz_despesa.csv data/fonte_stn.csv; do
+          echo "Validando $csv..."
+          if [ ! -s "$csv" ]; then
+            echo "❌ $csv está vazio"
+            exit 1
+          fi
+          
+          # Verificar se tem pelo menos 2 linhas (cabeçalho + dados)
+          line_count=$(wc -l < "$csv")
+          if [ "$line_count" -lt 2 ]; then
+            echo "❌ $csv tem apenas $line_count linha(s), esperado pelo menos 2"
+            exit 1
+          fi
+          
+          echo "✅ $csv tem $line_count linhas"
+        done
+    
+    - name: Validate XLSX files
+      run: |
+        echo "🔍 Validando arquivos XLSX..."
+        
+        # Verificar se XLSX existem e não estão vazios
+        for xlsx in data/matriz_receita_desc.xlsx data/matriz_despesa_desc.xlsx; do
+          if [ ! -f "$xlsx" ] || [ ! -s "$xlsx" ]; then
+            echo "❌ $xlsx não existe ou está vazio"
+            exit 1
+          fi
+          echo "✅ $xlsx existe e não está vazio"
+        done
+    
+    - name: Validate data consistency
+      run: |
+        echo "🔍 Validando consistência dos dados..."
+        
+        # Verificar se matriz_receita e matriz_despesa têm colunas similares
+        receita_cols=$(head -1 data/matriz_receita.csv | tr ',' '\n' | wc -l)
+        despesa_cols=$(head -1 data/matriz_despesa.csv | tr ',' '\n' | wc -l)
+        
+        echo "Matriz receita: $receita_cols colunas"
+        echo "Matriz despesa: $despesa_cols colunas"
+        
+        if [ "$receita_cols" -lt 3 ] || [ "$despesa_cols" -lt 3 ]; then
+          echo "❌ Arquivos CSV têm muito poucas colunas"
+          exit 1
+        fi
+        
+        echo "✅ Estrutura dos dados parece consistente"
+    
+    - name: Data validation summary
+      run: |
+        echo "🎉 Validação de dados concluída com sucesso!"
+        echo "📊 Arquivos validados:"
+        ls -la data/*.csv data/*.xlsx
+        echo ""
+        echo "📈 Estatísticas:"
+        for file in data/*.csv; do
+          lines=$(wc -l < "$file")
+          echo "  $(basename "$file"): $lines linhas"
+        done
