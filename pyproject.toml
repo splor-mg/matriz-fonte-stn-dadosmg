@@ -8,10 +8,10 @@ packages = [{include = "scripts"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-dpckan = "0.1.21"
-frictionless = {extras = ["excel"], version = "4.16.6"}
+frictionless = {extras = ["excel"], version = ">=5.14,<6"}
 dpm = {git = "https://github.com/splor-mg/dpm.git", branch = "main"}
 requests = "^2.31.0"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.0.0"
@@ -29,6 +29,9 @@ update-ano = "scripts.ano_update:main_cli"
 # Scripts de Docker
 docker-build = "scripts.docker_build:main"
 docker-push = "scripts.docker_push:main"
+
+# Scripts de publicação
+publish-ckan = "scripts.publish_ckan:main"
 
 [build-system]
 requires = ["poetry-core"]

@@ -13,17 +13,25 @@ RUN /rocker_scripts/install_python.sh
 
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt-get install -y git
+RUN apt-get install -y git software-properties-common
 
-# Instalar Poetry
-RUN pip install poetry
+# Instalar Python 3.11
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update && apt-get install -y python3.11 python3.11-venv python3.11-dev python3.11-distutils
+
+# Instalar Poetry usando Python 3.11
+RUN python3.11 -m pip install poetry
 
 # Copiar arquivos de configuração Python
 COPY pyproject.toml poetry.lock* ./
 
 # Configurar Poetry e instalar dependências
 RUN poetry config virtualenvs.create false && \
+    poetry lock && \
     poetry install --only=main --no-interaction --no-ansi --no-root
+
+# Instalar versão compatível do Frictionless antes de usar dpm
+RUN python3.11 -m pip install "frictionless>=5.14,<6"
 
 # Copiar DESCRIPTION para R
 COPY DESCRIPTION .
@@ -47,8 +55,9 @@ COPY datapackage.yaml .
 
 # Garantir compatibilidade do dpm com Frictionless 5.x e reinstalar dpm
 # dpm usa System.use_context, presente na API 5.x
-RUN pip install "frictionless>=5.14,<6" && \
-    pip install --no-deps --force-reinstall git+https://github.com/splor-mg/dpm.git@main
+RUN python3.11 -m pip install "frictionless>=5.14,<6" && \
+    python3.11 -m pip uninstall -y dpm && \
+    python3.11 -m pip install --no-deps --force-reinstall git+https://github.com/splor-mg/dpm.git@main
 
 # Instalar dependências de dados usando dpm (carregando o secret como env)
 RUN --mount=type=secret,id=secret bash -lc "set -a && . /run/secrets/secret || true && set +a && poetry run dpm install"

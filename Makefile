@@ -1,4 +1,4 @@
-.PHONY: all all-with-build check-image extract transform check publish push session-info config docker-build docker-push extract-info help
+.PHONY: all all-with-build check-image extract transform check publish push session-info session-info-docker config docker-build docker-push extract-info help
 
 include config.mk
 
@@ -7,14 +7,15 @@ all: check-image session-info extract transform check publish
 all-with-build: docker-build-push session-info extract transform check publish
 
 extract:
-	poetry run dpm install
+	@echo "🔍 Executando extract localmente..."
+	@poetry run dpm install
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv
 
-data/matriz_receita.csv: scripts/matriz_receita.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2023/datapackage.json
+data/matriz_receita.csv: scripts/matriz_receita.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2025/datapackage.json
 	Rscript $<
 
-data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2023/datapackage.json
+data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2025/datapackage.json
 	Rscript $<
 
 data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
@@ -30,7 +31,7 @@ check:
 	frictionless validate datapackage.yaml
 
 publish:
-	dpckan --datapackage datapackage.yaml dataset update
+	poetry run publish-ckan --datapackage datapackage.yaml
 
 push:
 	git add data/*.csv data/*.xlsx
@@ -39,7 +40,16 @@ push:
 
 session-info:
 	poetry run dpm --version
-	Rscript -e "packageVersion('relatorios')"
+	@if command -v Rscript >/dev/null 2>&1; then \
+		Rscript -e "packageVersion('relatorios')"; \
+	else \
+		echo "R não disponível localmente - executando session-info no Docker..."; \
+		$(MAKE) session-info-docker; \
+	fi
+
+session-info-docker: ## Executa session-info dentro do Docker
+	@echo "🔍 Executando session-info dentro do Docker..."
+	@docker run --rm -v $(PWD):/project aidsplormg/$(DOCKER_IMAGE):$(DOCKER_TAG) bash -c "poetry run dpm --version && Rscript -e \"packageVersion('relatorios')\""
 
 clean:
 	rm -f data/*.csv data/*.xlsx
@@ -48,7 +58,7 @@ check-image:
 	@echo "🔍 Verificando se imagem Docker existe..."
 	@if [ "$$CI" = "true" ]; then \
 		echo "✅ Executando no CI - pulando verificação de imagem"; \
-	elif ! docker image inspect aidsplormg/$(DOCKER_IMAGE):latest >/dev/null 2>&1; then \
+	elif ! docker image inspect aidsplormg/$(DOCKER_IMAGE):$(DOCKER_TAG) >/dev/null 2>&1; then \
 		echo "❌ Imagem Docker não encontrada localmente"; \
 		echo "Construir e publicar imagem agora? (y/N)"; \
 		read -r response; \
