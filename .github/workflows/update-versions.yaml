@@ -2,9 +2,13 @@ name: Update Package Versions
 
 on:
   schedule:
-    # Executa toda quarta-feira às 08:00 (Brasília) → 11:00 UTC
-    - cron: '0 11 * * 3'
+    # Executa de segunda à sexta-feira às 07:49 (Brasília) → 10:49 UTC
+    - cron: '49 10 * * 1-5'
   workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
 
 jobs:
   update-versions:
@@ -97,3 +101,11 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: version-updated
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "changes": "dependencies and package versions updated"}'
+
+    - name: Workflow failure notification
+      if: failure()
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/workflow-failure.md

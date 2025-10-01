@@ -6,6 +6,10 @@ on:
     - cron: '1 20 * 2 *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+
 jobs:
   update-year:
     runs-on: ubuntu-latest
@@ -76,7 +80,7 @@ jobs:
         git diff --cached --stat
         echo ""
         current_year=$(date +%Y)
-        git commit -m "chore: Update year references to $current_year
+        git commit -m "chore(update-year): Update year references to $current_year
 
         - Updated ANO_MATRIZ in config.mk
         - Updated year references in R scripts:
@@ -95,3 +99,11 @@ jobs:
         echo "📅 Ano atual: $(date +%Y)"
         echo "📊 Arquivos atualizados:"
         git diff --name-only HEAD~1
+
+    - name: Workflow failure notification
+      if: failure()
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/workflow-failure.md
