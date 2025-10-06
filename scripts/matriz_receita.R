@@ -4,7 +4,7 @@ library(data.table)
 receitaAnoAnterior <- fread("datapackages/armazem-siafi-2024/data/receita.csv.gz")
 receitaAnoCorrente <- fread("datapackages/armazem-siafi-2025/data/receita.csv.gz")
 
-exec_rec <- rbind(receitaAnoAnterior, receitaAnoCorrente)
+exec_rec <- rbindlist(list(receitaAnoAnterior, receitaAnoCorrente), use.names = TRUE, fill = TRUE)
 names(exec_rec) <- toupper(names(exec_rec))
 exec_rec[, FONTE_STN_COD := is_fonte_stn_rec(exec_rec)]
 

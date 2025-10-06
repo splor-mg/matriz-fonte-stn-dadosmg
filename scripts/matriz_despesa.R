@@ -4,7 +4,7 @@ library(data.table)
 alteracoesAnoAnterior <- fread("datapackages/armazem-siafi-2024/data/alteracoes_orcamentarias.csv.gz")
 alteracoesAnoCorrente <- fread("datapackages/armazem-siafi-2025/data/alteracoes_orcamentarias.csv.gz")
 
-exec_desp <- rbind(alteracoesAnoAnterior, alteracoesAnoCorrente)
+exec_desp <- rbindlist(list(alteracoesAnoAnterior, alteracoesAnoCorrente), use.names = TRUE, fill = TRUE)
 names(exec_desp) <- toupper(names(exec_desp))
 exec_desp[, FONTE_STN_COD := is_fonte_stn_desp(exec_desp)]
 

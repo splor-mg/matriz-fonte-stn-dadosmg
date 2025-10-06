@@ -8,18 +8,46 @@ RUN_DEBUG="${RUN_DEBUG:-}"
 debug() { if [ -n "$RUN_DEBUG" ]; then echo "[run.sh] $*" 1>&2; fi }
 debug "cwd=$(pwd) args=${CMD_TO_RUN}"
 
+# Enable shell tracing when debugging
+if [ -n "$RUN_DEBUG" ]; then
+  set -x
+fi
+
 # Map GH_PAT -> GITHUB_TOKEN if only GH_PAT is present
 if [ -z "${GITHUB_TOKEN:-}" ] && [ -n "${GH_PAT:-}" ]; then
   export GITHUB_TOKEN="${GH_PAT}"
   debug "Mapped GH_PAT -> GITHUB_TOKEN"
 fi
 
-# Detect if running inside container
-if [ -f "/.dockerenv" ] || [ "${IN_DOCKER:-}" = "1" ]; then
+# Detect if running inside container (rely on /.dockerenv; allow explicit override via FORCE_IN_DOCKER)
+if [ -f "/.dockerenv" ] || [ "${FORCE_IN_DOCKER:-}" = "1" ]; then
   # Ensure /project is a bind mount to host
   if grep -q " /project " /proc/self/mountinfo || mount | grep -q " on /project "; then
     debug "Inside container with bind mount detected; executing directly"
-    exec bash -lc "$CMD_TO_RUN"
+    # Execute in /project with strict shell; ensure deps if missing
+    if [ -n "$RUN_DEBUG" ]; then
+      exec bash -lc "set -euo pipefail; echo '[container] PWD='\"$PWD\"; [ -d /project ] && cd /project; which poetry || true; poetry --version || true; \
+        echo '[container] ensuring poetry deps...'; missing=0; \
+        poetry run python -c 'import frictionless' 2>/dev/null || missing=1; \
+        poetry run python -c 'import scripts.publish_ckan' 2>/dev/null || missing=1; \
+        if [ \"\$missing\" = 1 ]; then poetry install --only=main --no-root; fi; \
+        echo '[container] running:' \"$CMD_TO_RUN\"; \
+        if [[ \"$CMD_TO_RUN\" == 'poetry run publish-ckan'* ]]; then \
+          eval \"poetry run python -m scripts.publish_ckan${CMD_TO_RUN#poetry run publish-ckan}\"; \
+        else \
+          eval \"$CMD_TO_RUN\"; \
+        fi"
+    else
+      exec bash -lc "set -euo pipefail; [ -d /project ] && cd /project; missing=0; \
+        poetry run python -c 'import frictionless' 2>/dev/null || missing=1; \
+        poetry run python -c 'import scripts.publish_ckan' 2>/dev/null || missing=1; \
+        if [ \"\$missing\" = 1 ]; then poetry install --only=main --no-root; fi; \
+        if [[ \"$CMD_TO_RUN\" == 'poetry run publish-ckan'* ]]; then \
+          eval \"poetry run python -m scripts.publish_ckan${CMD_TO_RUN#poetry run publish-ckan}\"; \
+        else \
+          eval \"$CMD_TO_RUN\"; \
+        fi"
+    fi
     exit 0
   else
     echo "❌ /project não está montado como bind. Rode 'make docker' para entrar com bind ou execute 'make' no host." 1>&2
@@ -50,18 +78,19 @@ debug "docker run with image ${DOCKER_USER_ENV}/${DOCKER_IMAGE_ENV}:${DOCKER_TAG
 debug "env-file opt: '${DOCKER_ENV_FILE_OPT}'"
 debug "command: ${CMD_TO_RUN}"
 
-# Extra docker run flags (e.g., -it for interactive TTY)
+# Extra docker run flags (non-interactive by default; no TTY unless requested)
 EXTRA_FLAGS="${DOCKER_RUN_EXTRA:-}"
-if [ -z "${EXTRA_FLAGS}" ] && [ -n "${RUN_DEBUG}" ]; then
-  # when debugging, prefer TTY for better log flushing
-  EXTRA_FLAGS="-t"
+if [ -z "${EXTRA_FLAGS}" ]; then
+  EXTRA_FLAGS=""
 fi
 debug "extra flags: '${EXTRA_FLAGS}'"
 
 docker run --rm ${EXTRA_FLAGS} ${DOCKER_ENV_FILE_OPT} \
   -e GITHUB_TOKEN -e GH_PAT -e CKAN_HOST -e CKAN_KEY \
+  -e RUN_DEBUG \
   -v "$(pwd)":/project \
+  -w /project \
   "${DOCKER_USER_ENV}/${DOCKER_IMAGE_ENV}:${DOCKER_TAG_ENV}" \
-  bash -lc "$CMD_TO_RUN"
+  bash -lc "set -euo pipefail; echo '[container] PWD='\"$PWD\"; which poetry || true; poetry --version || true; echo '[container] running:' \"$CMD_TO_RUN\"; $CMD_TO_RUN; echo '[container] ls datapackages:'; ls -lah datapackages || true" </dev/null
 
 

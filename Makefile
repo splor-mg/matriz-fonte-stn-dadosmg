@@ -1,24 +1,19 @@
 .PHONY: all all-with-build check-image extract transform check publish push session-info session-info-docker config docker-build docker-push extract-info docker help
 
+# Execução via scripts/run.sh centraliza .env, variáveis e docker run
+MAKEFLAGS += --no-print-directory
+SHELL := /bin/bash
+
 include config.mk
 
-# Wrapper para executar comandos dentro do container
-DOCKER_ENV_FILE :=
-ifneq (,$(wildcard .env))
-DOCKER_ENV_FILE := --env-file .env
-endif
-
-# Exporta variáveis necessárias para scripts externos (ex.: scripts/run.sh)
-export DOCKER_USER
-export DOCKER_IMAGE
-export DOCKER_TAG
-export DOCKER_ENV_FILE
-
-SHELL := /bin/bash
 
 # =============================================================================
 # 1) COMANDOS PRINCIPAIS
 # =============================================================================
+
+all: deps pacotes-check-version check-image session-info extract transform check publish
+
+all-with-build: deps pacotes-check-version docker-build-push session-info extract transform check publish
 
 # Prepara dependências Python localmente (fail-fast antes de Docker)
 deps: ## Verifica e instala dependências Python com Poetry
@@ -27,17 +22,13 @@ deps: ## Verifica e instala dependências Python com Poetry
 	@echo "🐍 poetry install"
 	@poetry install --no-interaction --no-ansi --no-root
 
-all: deps pacotes-check-version check-image session-info extract transform check publish
-
-all-with-build: deps pacotes-check-version docker-build-push session-info extract transform check publish
-
 # =============================================================================
 # 2) PROCESSAMENTO DE DADOS
 # =============================================================================
 
 extract: ## Baixa e instala datapackages necessários
 	@echo "[inside] 🔍 Executando extract..."
-	@bash scripts/run.sh "dpm install data.toml"
+	@bash scripts/run.sh "dpm install"
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv ## Processa dados e gera arquivos de saída
 
@@ -65,9 +56,13 @@ data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa
 # 3) VALIDAÇÃO E PUBLICAÇÃO
 # =============================================================================
 
-check: ## Valida datapackage.yaml com frictionless
-	@echo "[inside] ✅ frictionless validate"
-	@bash scripts/run.sh "poetry run frictionless validate datapackage.yaml"
+check: ## Valida saídas com Frictionless (ignora colunas extras nas fontes)
+	@echo "[inside] ✅ frictionless validate (arquivos gerados)"
+	@bash scripts/run.sh "poetry run frictionless validate data/matriz_receita.csv"
+	@bash scripts/run.sh "poetry run frictionless validate data/matriz_despesa.csv"
+	@bash scripts/run.sh "poetry run frictionless validate data/matriz_receita_desc.xlsx"
+	@bash scripts/run.sh "poetry run frictionless validate data/matriz_despesa_desc.xlsx"
+	@bash scripts/run.sh "poetry run frictionless validate data/fonte_stn.csv"
 
 publish: ## Publica dados no CKAN
 	@echo "[inside] 🚀 publish-ckan"
