@@ -8,51 +8,58 @@ ifneq (,$(wildcard .env))
 DOCKER_ENV_FILE := --env-file .env
 endif
 
-DOCKER_RUN = docker run --rm $(DOCKER_ENV_FILE) \
-	-e GITHUB_TOKEN="$(GITHUB_TOKEN)" \
-	-e CKAN_HOST="$(CKAN_HOST)" \
-	-e CKAN_KEY="$(CKAN_KEY)" \
-	-v $(PWD):/project \
-	$(DOCKER_USER)/$(DOCKER_IMAGE):$(DOCKER_TAG) \
-	bash -lc
+# Exporta variáveis necessárias para scripts externos (ex.: scripts/run.sh)
+export DOCKER_USER
+export DOCKER_IMAGE
+export DOCKER_TAG
+export DOCKER_ENV_FILE
+
+SHELL := /bin/bash
 
 # =============================================================================
 # 1) COMANDOS PRINCIPAIS
 # =============================================================================
 
-all: check-image session-info extract transform check publish
+# Prepara dependências Python localmente (fail-fast antes de Docker)
+deps: ## Verifica e instala dependências Python com Poetry
+	@echo "🐍 poetry check"
+	@poetry check
+	@echo "🐍 poetry install"
+	@poetry install --no-interaction --no-ansi --no-root
 
-all-with-build: docker-build-push session-info extract transform check publish
+all: deps pacotes-check-version check-image session-info extract transform check publish
+
+all-with-build: deps pacotes-check-version docker-build-push session-info extract transform check publish
 
 # =============================================================================
 # 2) PROCESSAMENTO DE DADOS
 # =============================================================================
 
 extract: ## Baixa e instala datapackages necessários
-	@echo "[inside] 🔍 Executando extract dentro do Docker..."
-	@$(DOCKER_RUN) "poetry run dpm install"
+	@echo "[inside] 🔍 Executando extract..."
+	@bash scripts/run.sh "dpm install data.toml"
 
 transform: data/matriz_receita.csv data/matriz_receita_desc.xlsx data/matriz_despesa.csv data/matriz_despesa_desc.xlsx data/fonte_stn.csv ## Processa dados e gera arquivos de saída
 
-data/matriz_receita.csv: scripts/matriz_receita.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2025/datapackage.json
+data/matriz_receita.csv: scripts/matriz_receita.R | extract
 	@echo "[inside] ▶ Rscript $<"
-	@$(DOCKER_RUN) "Rscript $<"
+	@bash scripts/run.sh "Rscript $<"
 
-data/matriz_despesa.csv: scripts/matriz_despesa.R datapackages/armazem-siafi-2024/datapackage.json datapackages/armazem-siafi-2025/datapackage.json
+data/matriz_despesa.csv: scripts/matriz_despesa.R | extract
 	@echo "[inside] ▶ Rscript $<"
-	@$(DOCKER_RUN) "Rscript $<"
+	@bash scripts/run.sh "Rscript $<"
 
-data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml
+data/fonte_stn.csv: scripts/fonte_stn.R data-raw/fonte_stn.yaml | extract
 	@echo "[inside] ▶ Rscript $<"
-	@$(DOCKER_RUN) "Rscript $<"
+	@bash scripts/run.sh "Rscript $<"
 
-data/matriz_receita_desc.xlsx: scripts/matriz_receita_desc.R data/matriz_receita.csv data/fonte_stn.csv
+data/matriz_receita_desc.xlsx: scripts/matriz_receita_desc.R data/matriz_receita.csv data/fonte_stn.csv | extract
 	@echo "[inside] ▶ Rscript $<"
-	@$(DOCKER_RUN) "Rscript $<"
+	@bash scripts/run.sh "Rscript $<"
 
-data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa.csv data/fonte_stn.csv
+data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa.csv data/fonte_stn.csv | extract
 	@echo "[inside] ▶ Rscript $<"
-	@$(DOCKER_RUN) "Rscript $<"
+	@bash scripts/run.sh "Rscript $<"
 
 # =============================================================================
 # 3) VALIDAÇÃO E PUBLICAÇÃO
@@ -60,11 +67,11 @@ data/matriz_despesa_desc.xlsx: scripts/matriz_despesa_desc.R data/matriz_despesa
 
 check: ## Valida datapackage.yaml com frictionless
 	@echo "[inside] ✅ frictionless validate"
-	@$(DOCKER_RUN) "poetry run frictionless validate datapackage.yaml"
+	@bash scripts/run.sh "poetry run frictionless validate datapackage.yaml"
 
 publish: ## Publica dados no CKAN
 	@echo "[inside] 🚀 publish-ckan"
-	@$(DOCKER_RUN) "poetry run publish-ckan --datapackage datapackage.yaml"
+	@bash scripts/run.sh "poetry run publish-ckan --datapackage datapackage.yaml"
 
 push: ## Commita e envia dados processados para o repositório
 	git add data/*.csv data/*.xlsx
@@ -77,16 +84,16 @@ push: ## Commita e envia dados processados para o repositório
 
 session-info: ## Mostra informações da sessão (versões dos pacotes)
 	@echo "[inside] ℹ️  session-info"
-	@$(DOCKER_RUN) "poetry run dpm --version && Rscript -e \"packageVersion('relatorios')\""
+	@bash scripts/run.sh "poetry run dpm --version && Rscript -e \"packageVersion('relatorios')\""
 
 session-info-docker: ## Executa session-info dentro do Docker
 	@echo "[inside] ℹ️  session-info"
-	@$(DOCKER_RUN) "poetry run dpm --version && Rscript -e \"packageVersion('relatorios')\""
+	@bash scripts/run.sh "poetry run dpm --version && Rscript -e \"packageVersion('relatorios')\""
 
 # Alvo genérico: rodar qualquer alvo dentro do container
 inside/%:
 	@echo "[inside] make $*"
-	@$(DOCKER_RUN) "make $*"
+	@bash scripts/run.sh "make $*"
 
 clean: ## Remove arquivos de dados processados
 	rm -f data/*.csv data/*.xlsx
@@ -127,7 +134,7 @@ config: ## Configura interativamente as variáveis Docker
 
 docker: check-image ## Cria um container interativo para desenvolvimento e processamento de dados
 	@if [ TRUE ]; then \
-		$(DOCKER_RUN_CMD) -c "poetry install && bash"; \
+		$(DOCKER_RUN_CMD) -c "poetry install --no-interaction --no-ansi --no-root && bash"; \
 	fi
 
 docker-build: ## Constrói a imagem Docker
@@ -147,7 +154,7 @@ extract-info: ## Extrai informações de versões da imagem Docker
 	@poetry run extract-info
 
 pacotes-check-version: ## Verifica e atualiza versões dos pacotes DCAF no GitHub
-	@poetry run pacotes-check-version
+	@poetry run pacotes-check-version || true
 
 update-ano: ## Atualiza anos nos arquivos do projeto (config.mk e scripts R)
 	@poetry run update-ano
