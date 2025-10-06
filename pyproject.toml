@@ -1,17 +1,17 @@
-[tool.poetry]
+[project]
 name = "matriz-fonte-stn-dadosmg"
 version = "0.1.0"
 description = "Sistema para processamento de dados da matriz fonte STN"
-authors = ["Splor MG <contato@splor.mg>"]
 readme = "README.md"
-packages = [{include = "scripts"}]
+authors = [{name = "Splor MG", email = "contato@splor.mg"}]
+requires-python = ">=3.11,<4.0"
+dependencies = [
+  "frictionless[excel]>=5.14,<6",
+  "dpm @ git+https://github.com/splor-mg/dpm.git@main",
+  "requests>=2.31.0,<3",
+  "python-dotenv>=1.0.0,<2"
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-frictionless = {extras = ["excel"], version = ">=5.14,<6"}
-dpm = {git = "https://github.com/splor-mg/dpm.git", branch = "main"}
-requests = "^2.31.0"
-python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.0.0"
@@ -19,7 +19,7 @@ flake8 = "^6.0.0"
 mypy = "^1.0.0"
 pytest = "^7.0.0"
 
-[tool.poetry.scripts]
+[project.scripts]
 # Scripts de configuração
 config = "scripts.config:main"
 extract-info = "scripts.extract_info:main"
@@ -34,8 +34,24 @@ docker-push = "scripts.docker_push:main"
 publish-ckan = "scripts.publish_ckan:main"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
+tagged-metadata = false
+format = "{tag}"
+metadata = false
+strict = false
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["pyproject.toml"]
+
+[tool.poetry]
+# Mantém configuração de pacotes do Poetry para inclusão da pasta scripts
+packages = [{include = "scripts"}]
 
 [tool.black]
 line-length = 88
