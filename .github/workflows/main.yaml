@@ -21,6 +21,8 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # necessário para obter tags para versão dinâmica
     
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -40,10 +42,15 @@ jobs:
         version: latest
         virtualenvs-create: true
         virtualenvs-in-project: true
+
+    - name: Install poetry-dynamic-versioning plugin
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry-dynamic-versioning
     
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-ansi
+      run: poetry install --no-interaction --no-ansi --no-root
     
     - name: Run Black
       run: poetry run black --check .
@@ -63,6 +70,8 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # necessário para obter tags para versão dinâmica
     
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -82,10 +91,15 @@ jobs:
         version: latest
         virtualenvs-create: true
         virtualenvs-in-project: true
+
+    - name: Install poetry-dynamic-versioning plugin
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry-dynamic-versioning
     
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-ansi
+      run: poetry install --no-interaction --no-ansi --no-root
     
     - name: Check package versions
       continue-on-error: true
@@ -107,6 +121,35 @@ jobs:
         echo "DOCKER_TAG=$(grep '^DOCKER_TAG=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
         echo "DOCKER_USER=$(grep '^DOCKER_USER=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
         echo "DOCKER_IMAGE=$(grep '^DOCKER_IMAGE=' config.mk | cut -d'=' -f2)" >> $GITHUB_ENV
+
+    - name: Update DCAF package versions
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: |
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        poetry run pacotes-check-version --yes --non-interactive || true
+        if ! git diff --quiet -- config.mk; then
+          echo "Changes detected in config.mk; committing..."
+          # Generate commit body with deltas
+          BODY=$(poetry run python - <<'PY'
+from pathlib import Path
+import re
+old = Path('config.mk').read_text()
+print('\nDeltas:')
+for key in ['RELATORIOS_VERSION','EXECUCAO_VERSION','REEST_VERSION']:
+    # naive: show current line; the diff will capture actual change
+    m = re.search(rf'^{key}=(.*)$', old, re.M)
+    if m:
+        print(f"- {key}: {m.group(1)}")
+PY
+)
+          git add config.mk
+          git commit -m "chore(dcaf): update DCAF package versions" -m "$BODY"
+          git push
+        else
+          echo "No changes in config.mk"
+        fi
 
     - name: Extract metadata
       id: meta
@@ -193,7 +236,7 @@ jobs:
     
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-ansi
+      run: poetry install --no-interaction --no-ansi --no-root
     
     - name: Validate with Frictionless
       run: poetry run frictionless validate datapackage.yaml
