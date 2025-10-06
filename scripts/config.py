@@ -42,7 +42,6 @@ def safe_config_update():
     
     try:
         shutil.copy2(config_path, backup_path)
-        print(f"✅ Backup criado: {backup_path}")
         
         # Calcula hash do arquivo original
         with open(config_path, 'rb') as f:
@@ -246,8 +245,9 @@ def main():
                     else:
                         new_values[key] = current_value
                 except KeyboardInterrupt:
+                    # Propaga para o handler externo restaurar o backup
                     print(f"\n{Colors.YELLOW}Operação cancelada.{Colors.END}")
-                    sys.exit(0)
+                    raise
         else:
             # Modo não-interativo: usa valores atuais
             new_values = {k: v for k, v in current_values.items() if k in ['ANO_MATRIZ', 'DOCKER_TAG', 'DOCKER_USER', 'DOCKER_IMAGE']}
@@ -270,6 +270,7 @@ def main():
             restore_from_backup(backup_path)
             cleanup_backup(backup_path)
             print(f"{Colors.GREEN}✅ Estado original restaurado e backup removido{Colors.END}")
+            print()  # linha em branco para separar próxima etapa
             sys.exit(0)
 
         # PROTOCOLO DE CONFERÊNCIA: Finaliza com validação
@@ -294,7 +295,8 @@ def main():
         # Mensagem informativa sobre próximo passo
         print(f"\n{Colors.BLUE}{Colors.BOLD}💡 SUGESTÃO DE PRÓXIMO PASSO{Colors.END}")
         print(f"{Colors.BLUE}{'─' * 30}{Colors.END}")
-        print(f"{Colors.GREEN}make docker-build{Colors.END} - Constrói a imagem Docker")
+        print(f"{Colors.GREEN}make all{Colors.END} - Executa todo o pipeline")
+        print()  # linha em branco para separar próxima etapa
         
     except KeyboardInterrupt:
         print(f"\n\n{Colors.YELLOW}⚠️  Operação cancelada pelo usuário{Colors.END}")
@@ -306,6 +308,7 @@ def main():
                 print(f"{Colors.GREEN}✅ Backup removido com sucesso{Colors.END}")
         except Exception as cleanup_error:
             print(f"{Colors.YELLOW}⚠️  Aviso: Erro ao limpar backup: {cleanup_error}{Colors.END}")
+        print()  # linha em branco para separar próxima etapa
         sys.exit(0)
     except Exception as e:
         print(f"\n{Colors.RED}❌ Erro inesperado: {e}{Colors.END}")
@@ -317,6 +320,7 @@ def main():
                 print(f"{Colors.GREEN}✅ Backup removido com sucesso{Colors.END}")
         except Exception as cleanup_error:
             print(f"{Colors.YELLOW}⚠️  Aviso: Erro ao limpar backup: {cleanup_error}{Colors.END}")
+        print()  # linha em branco para separar próxima etapa
         sys.exit(1)
 
 if __name__ == "__main__":

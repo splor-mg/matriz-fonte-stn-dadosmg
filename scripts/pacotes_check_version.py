@@ -7,6 +7,7 @@ Compara versões atuais com as mais recentes no GitHub
 import os
 import sys
 import re
+import argparse
 import requests
 from pathlib import Path
 from datetime import datetime
@@ -155,7 +156,33 @@ def update_config_mk(config, updates):
         print(f"{Colors.BLUE}ℹ️  Nenhuma atualização necessária{Colors.END}")
         return False
 
-def check_package_versions():
+def backup_config() -> Path | None:
+    """Cria backup simples de config.mk e retorna o Path, ou None se falhar."""
+    cfg = Path("config.mk")
+    if not cfg.exists():
+        return None
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    bkp = Path(f"config.mk.backup_{ts}")
+    try:
+        bkp.write_bytes(cfg.read_bytes())
+        return bkp
+    except Exception:
+        return None
+
+def restore_config(backup_path: Path | None) -> bool:
+    """Restaura config.mk a partir do backup e remove o backup."""
+    if not backup_path or not backup_path.exists():
+        return False
+    cfg = Path("config.mk")
+    try:
+        cfg.write_bytes(backup_path.read_bytes())
+        backup_path.unlink(missing_ok=True)
+        print("✅ Arquivo restaurado do backup")
+        return True
+    except Exception:
+        return False
+
+def check_package_versions(assume_yes: bool, non_interactive: bool):
     """Verifica e atualiza versões dos pacotes DCAF"""
     print(f"{Colors.BLUE}{Colors.BOLD}")
     print("=" * 60)
@@ -221,14 +248,44 @@ def check_package_versions():
         
         # Atualizar config.mk se necessário
         if updates:
+            print("Resumo das atualizações propostas:")
+            for package, var_name in packages.items():
+                if package in updates:
+                    print(f"  - {package}: {config.get(var_name, 'N/A')} → {updates[package]}")
+            print()
+
+            should_apply = assume_yes or non_interactive
+            backup_path = None
+            if not should_apply:
+                # Criar backup antes do prompt interativo
+                backup_path = backup_config()
+                try:
+                    answer = input("Aplicar essas atualizações no config.mk? (y/N): ").strip().lower()
+                    should_apply = answer == 'y'
+                except KeyboardInterrupt:
+                    print(f"\n{Colors.YELLOW}Operação cancelada pelo usuário{Colors.END}")
+                    # Restaurar se houve backup
+                    restore_config(backup_path)
+                    return False
+
+            if not should_apply:
+                # Restaurar se houve backup e usuário recusou
+                restore_config(backup_path)
+                print(f"{Colors.YELLOW}⚠️  Atualizações NÃO aplicadas por opção do usuário{Colors.END}")
+                return False
+
             print(f"🔧 Atualizando config.mk...")
             updated = update_config_mk(config, updates)
-            
             if updated:
+                # Atualização ok: remover backup
+                if backup_path and backup_path.exists():
+                    backup_path.unlink(missing_ok=True)
                 print(f"\n{Colors.GREEN}🎉 Atualizações aplicadas com sucesso!{Colors.END}")
                 print(f"📋 Pacotes atualizados: {', '.join(updates.keys())}")
                 return True
             else:
+                # Falha ao escrever: restaurar
+                restore_config(backup_path)
                 print(f"\n{Colors.RED}❌ Erro ao atualizar config.mk{Colors.END}")
                 return False
         else:
@@ -249,6 +306,11 @@ def check_package_versions():
 def main():
     """Função principal"""
     try:
+        parser = argparse.ArgumentParser(description="Verifica e atualiza versões DCAF")
+        parser.add_argument("-y", "--yes", action="store_true", help="aplica atualizações sem perguntar")
+        parser.add_argument("--non-interactive", action="store_true", help="modo não interativo (CI)")
+        args = parser.parse_args()
+
         # Carrega .env se existir
         load_env_file()
         # Verificar se requests está disponível
@@ -259,15 +321,20 @@ def main():
             print(f"{Colors.BLUE}💡 Execute: pip install requests{Colors.END}")
             sys.exit(1)
         
+        # Detectar não-interatividade por TTY se flag não fornecida
+        non_interactive = args.non_interactive or (not sys.stdin.isatty())
+
         # Executar verificação
-        has_updates = check_package_versions()
+        has_updates = check_package_versions(assume_yes=args.yes, non_interactive=non_interactive)
         
         # Retornar código de saída apropriado
         if has_updates:
             print(f"\n{Colors.GREEN}✅ Script concluído com atualizações{Colors.END}")
+            print()  # linha em branco para separar próxima etapa
             sys.exit(0)  # Sucesso com mudanças
         else:
             print(f"\n{Colors.BLUE}ℹ️  Script concluído sem mudanças{Colors.END}")
+            print()  # linha em branco para separar próxima etapa
             sys.exit(1)  # Sucesso sem mudanças (para o workflow)
             
     except Exception as e:
