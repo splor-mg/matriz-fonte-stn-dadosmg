@@ -11,6 +11,9 @@ WORKDIR /project
 
 RUN /rocker_scripts/install_python.sh
 
+# Sinaliza execução dentro do container para wrappers
+ENV IN_DOCKER=1
+
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y git software-properties-common
 
@@ -18,8 +21,14 @@ RUN apt-get update && apt-get install -y git software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y python3.11 python3.11-venv python3.11-dev python3.11-distutils
 
-# Instalar Poetry usando Python 3.11
-RUN python3.11 -m pip install poetry
+# Tornar Python 3.11 o padrão no container
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2 && \
+    update-alternatives --set python3 /usr/bin/python3.11 && \
+    ln -sf /usr/bin/python3 /usr/bin/python
+
+# Instalar Poetry usando Python 3.11 (garante operação no Python 3.11)
+RUN python3.11 -m pip install --upgrade pip && \
+    python3.11 -m pip install --force-reinstall poetry
 
 # Copiar arquivos de configuração Python
 COPY pyproject.toml poetry.lock* ./
@@ -29,7 +38,7 @@ RUN poetry config virtualenvs.create false && \
     poetry lock && \
     poetry install --only=main --no-interaction --no-ansi --no-root
 
-# Instalar versão compatível do Frictionless antes de usar dpm
+# Instalar versão compatível do Frictionless antes de usar dpm (no Python 3.11)
 RUN python3.11 -m pip install "frictionless>=5.14,<6"
 
 # Copiar DESCRIPTION para R
@@ -52,12 +61,13 @@ RUN --mount=type=secret,id=secret Rscript -e \
 COPY data.toml .
 COPY datapackage.yaml .
 
-# Garantir compatibilidade do dpm com Frictionless 5.x
+# Garantir compatibilidade do dpm com Frictionless 5.x e vincular o dpm ao Python 3.11
 # dpm usa System.use_context, presente na API 5.x
-RUN python3.11 -m pip install "frictionless>=5.14,<6"
+RUN python3.11 -m pip install "frictionless>=5.14,<6" && \
+    python3.11 -m pip install --no-deps --force-reinstall git+https://github.com/splor-mg/dpm.git@main
 
 # Instalar dependências de dados usando dpm (carregando o secret como env)
-RUN --mount=type=secret,id=secret bash -lc "set -a && . /run/secrets/secret || true && set +a && poetry run dpm install"
+RUN --mount=type=secret,id=secret bash -lc "set -a && . /run/secrets/secret || true && set +a && python3.11 -m dpm.cli install"
 
 # Configurar labels da imagem
 LABEL org.opencontainers.image.title="Matriz Fonte STN Dados MG"
