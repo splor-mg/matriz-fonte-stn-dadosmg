@@ -662,6 +662,12 @@
     de 6 de julho de 2001.
   dt_inicio_vigencia: '2023-01-01'
   dt_fim_vigencia: '9999-12-01'
+- fonte_stn_cod: 763
+  fonte_stn_descricao: Recursos próprios dos estados vinculados ao Propag - LC nº 212/2025
+  interpretacao: >-
+    Controla os recursos próprios dos estados relativos ao percentual do saldo devedor atualizado das dívidas elencadas no art. 2º, § 1º, da Lei Complementar nº 212, de 13 de janeiro de 2025, e respectivos rendimentos, que o estado se comprometeu a aplicar diretamente nas finalidades previstas no art. 5º, § 2º, da referida Lei Complementar, conforme inciso I e III do art. 65 do Decreto nº12.433, de 14 de abril de 2025. FR a ser utilizada quando o estado optar pela contabilização dos recursos do art. 65 do Decreto nº 12.433/2025 por meio de fundo público específico.
+  dt_inicio_vigencia: '2025-01-01'
+  dt_fim_vigencia: '9999-12-01'
 - fonte_stn_cod: 799
   fonte_stn_descricao: Outras Vinculações Legais
   interpretacao: >-

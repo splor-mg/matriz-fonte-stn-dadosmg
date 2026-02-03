@@ -5,3 +5,8 @@
 venv/
 .env
 datapackages/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
