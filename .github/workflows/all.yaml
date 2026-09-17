@@ -40,20 +40,22 @@ jobs:
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
         GH_PAT: ${{ secrets.GH_PAT }}
+        RELATORIOS_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         docker run \
           -e GITHUB_TOKEN=$GH_PAT \
+          -e RELATORIOS_TOKEN=$RELATORIOS_TOKEN \
           -e CKAN_HOST=$CKAN_HOST \
           -e CKAN_KEY=$CKAN_KEY \
           --mount type=bind,source=${PWD},target=/project splormg/${{ github.event.repository.name }} \
-          bash -c "Rscript -e \"remotes::install_github('splor-mg/relatorios', auth_token = Sys.getenv('GITHUB_PAT'))\" && make all"
+          bash -c "Rscript -e \"remotes::install_github('splor-mg/relatorios', auth_token = Sys.getenv('RELATORIOS_TOKEN'))\" && make all"
 
     - name: Push data package
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
         make push
-        
+
     - name: Workflow failure notification
       uses: JasonEtco/create-an-issue@v2
       if: failure()
