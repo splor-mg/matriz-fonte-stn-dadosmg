@@ -11,19 +11,21 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       env:
         DOCKER_BUILDKIT: 1
-        BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
+        GH_PAT: ${{ secrets.GH_PAT }}
       with:
         context: .
         push: true
@@ -31,21 +33,27 @@ jobs:
         cache-from: type=registry,ref=splormg/${{ github.event.repository.name }}:latest
         cache-to: type=inline
         secrets: |
-          id=bitbucket_user,env=BITBUCKET_USER
-          id=bitbucket_password,env=BITBUCKET_PASSWORD
+          id=github_pat,env=GH_PAT
+
     - name: ETL pipeline
-      env: 
-        BITBUCKET_USER: ${{ secrets.BITBUCKET_USER }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
+      env:
         CKAN_HOST: ${{ secrets.CKAN_HOST }}
         CKAN_KEY: ${{ secrets.CKAN_KEY }}
         GH_PAT: ${{ secrets.GH_PAT }}
-      run: docker run -e GITHUB_TOKEN=$GH_PAT -e BITBUCKET_USER=$BITBUCKET_USER -e BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD -e CKAN_HOST=$CKAN_HOST -e CKAN_KEY=$CKAN_KEY --mount type=bind,source=${PWD},target=/project splormg/${{ github.event.repository.name }} bash -c "Rscript -e \"remotes::install_bitbucket('dcgf/relatorios', auth_user = Sys.getenv('BITBUCKET_USER'), password = Sys.getenv('BITBUCKET_PASSWORD'))\" && make all"
+      run: |
+        docker run \
+          -e GITHUB_TOKEN=$GH_PAT \
+          -e CKAN_HOST=$CKAN_HOST \
+          -e CKAN_KEY=$CKAN_KEY \
+          --mount type=bind,source=${PWD},target=/project splormg/${{ github.event.repository.name }} \
+          bash -c "Rscript -e \"remotes::install_github('splor-mg/relatorios', auth_token = Sys.getenv('GITHUB_PAT'))\" && make all"
+
     - name: Push data package
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
         make push
+        
     - name: Workflow failure notification
       uses: JasonEtco/create-an-issue@v2
       if: failure()
